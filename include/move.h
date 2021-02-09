@@ -86,7 +86,7 @@ public:
     if ( (_score < INT_LEAST16_MIN) || (_score > INT_LEAST16_MAX) ) {
       std::cout << INT_LEAST16_MIN << "/" << _score << "/" << INT_LEAST16_MAX << std::endl;
     }
-    //assert ( (_score >= INT_LEAST16_MIN) && (_score <= INT_LEAST16_MAX) );
+    assert ( (_score >= INT_LEAST16_MIN) && (_score <= INT_LEAST16_MAX) );
     score = _score;
   };
   
@@ -122,8 +122,8 @@ protected:
   unsigned int  check              : 1; // set during 
   unsigned int  castle_block_color : 2; //    possible-moves generation; check at eval time.
   
-  //int_least16_t score;            // ranges from INT_LEAST16_MIN to INT_LEAST16_MAX
-  int score;
+  int_least16_t score;                  // ranges from INT_LEAST16_MIN to INT_LEAST16_MAX
+  //int score;
 };
 
 };

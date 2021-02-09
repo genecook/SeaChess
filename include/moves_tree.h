@@ -20,7 +20,7 @@ public:
 
   MovesTreeNode(Move move) {
     InitMove(move.StartRow(), move.StartColumn(), move.EndRow(), move.EndColumn(),
-	     move.Color(), move.Outcome(), move.CaptureType());
+	     move.Color(), move.Outcome(), move.Check(), move.CaptureType());
   };
   
   ~MovesTreeNode() { Flush(); };

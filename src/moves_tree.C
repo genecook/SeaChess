@@ -17,7 +17,7 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
   eval_count = 0;
   
   ChooseMoveInner(root_node,game_board,Color(),0);
-  PickBestMove(root_node,game_board,suggested_move);
+  PickBestMove(root_node,game_board,NULL /*suggested_move*/);
 
   next_move->Set((Move *) root_node);
 		  
@@ -135,16 +135,19 @@ bool MovesTree::GetMoves(std::vector<Move> *possible_moves, Board &game_board, i
      }
      possible_moves->push_back(*pmi);
   }
-  
+
   return in_check;
 }
 
 bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool avoid_check) {
   std::vector<Move> all_possible_moves;
+  
   bool in_check = GetMoves(&all_possible_moves,game_board,color,avoid_check);
+  
   for (auto pmi = all_possible_moves.begin(); pmi != all_possible_moves.end(); pmi++) {
-    node->AddMove(*pmi);
+     node->AddMove(*pmi);
   }
+  
   return in_check;
 }
 
@@ -251,7 +254,11 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
   
   std::random_shuffle( root_node->possible_moves.begin(), root_node->possible_moves.end() );
 
+  //std::cout << "[PickBestMove] entered..." << std::endl;
+  
   for (auto pvm = root_node->possible_moves.begin(); pvm != root_node->possible_moves.end(); pvm++) {
+    //std::cout << "\t" << *(*pvm) << std::endl;
+
      if (!have_moves) {
        root_node->Set(*pvm);
        have_moves = true;
@@ -264,6 +271,8 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
      }
   }
 
+  //std::cout << std::endl;
+  
   if (have_moves) {
     // there were some valid moves to choose from, cool
   } else {

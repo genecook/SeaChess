@@ -31,6 +31,7 @@ public:
     outcome = _outcome;
     check = false;
     capture_type = _capture_type;
+    score = 0;
   };
 
  void Set(const Move *src) {
@@ -40,8 +41,9 @@ public:
     end_column         = src->end_column;
     color              = src->color;
     outcome            = src->outcome;
-    score              = src->score;
+    check              = src->check;
     capture_type       = src->capture_type;
+    score              = src->score;
   };
 
   // move comparison...

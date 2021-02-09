@@ -12,7 +12,12 @@ namespace SeaChess {
 
 void Piece::AddPossibleMove(std::vector<Move> *moves, int start_row, int start_column, int end_row, int end_column, int color,
                             int outcome, int capture_type) {
+  assert( (outcome != CAPTURE) || (capture_type != UNKNOWN) );
+  
   moves->push_back( Move(start_row,start_column,end_row,end_column,color,outcome,capture_type) );
+
+  assert( (moves->back().Outcome() != CAPTURE) || (moves->back().CaptureType() != UNKNOWN) );
+  
 }
 
 

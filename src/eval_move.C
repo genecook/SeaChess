@@ -85,7 +85,9 @@ void MovesTree::EvalMove(MovesTreeNode *move, Board &current_board, int forced_s
       case ROOK:   move->SetScore(100 * bias); break;
       case KNIGHT: move->SetScore( 75 * bias); break;
       case PAWN:   move->SetScore( 20 * bias); break;
-      default: break;
+      default:
+	std::cout << "capture type: " << move->CaptureType() << std::endl;
+	break;
     }
   } else if (move->Outcome() == PROMOTION) {
     move->SetScore(200 * bias); 
@@ -96,8 +98,8 @@ void MovesTree::EvalMove(MovesTreeNode *move, Board &current_board, int forced_s
   int check_score = ScoreMove(move,current_board,forced_score);
 
   if (check_score != move->Score()) {
-    std::cout << "[EvalMove] move: " << *move << std::endl;
-    std::cout << "[EvalMove] check-score/move-score: " << check_score << "/" << move->Score() << std::endl;
+    std::cout << "\t[EvalMove] board: " << current_board << " move: " << *move;
+    std::cout << ", check-score/move-score: " << check_score << "/" << move->Score() << std::endl;
   }
   assert (check_score == move->Score());
 }

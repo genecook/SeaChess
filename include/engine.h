@@ -79,9 +79,6 @@ class Engine {
       + game_board.Coordinates(src->EndRow(),src->EndColumn());
   };
 
-  virtual void GraphMovesToFile(const std::string &outfile, MovesTreeNode *node);
-  virtual void GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level, int move_index) {};
-
 protected:
   
   // user can specify opening move(s) at startup...

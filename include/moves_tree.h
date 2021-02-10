@@ -4,23 +4,32 @@
 // MovesTree
 //******************************************************************************
 
+#include <string>
 #include <iostream>
+#include <stdlib.h>
 #include <vector>
 
 namespace SeaChess {
 
+extern int master_move_id;
+  
 class MovesTreeNode : public Move {
 public:
-  MovesTreeNode() { InitMove(); };
+  MovesTreeNode() {
+    InitMove();
+    move_id = master_move_id++;
+  };
   
   MovesTreeNode(int start_row, int start_column, int end_row, int end_column, int color,
 		int outcome = INVALID_INDEX, int capture_type = INVALID_INDEX) {
     InitMove(start_row, start_column, end_row, end_column, color, outcome, capture_type);
+    move_id = master_move_id++;
   };
 
   MovesTreeNode(Move move) {
     InitMove(move.StartRow(), move.StartColumn(), move.EndRow(), move.EndColumn(),
 	     move.Color(), move.Outcome(), move.Check(), move.CaptureType());
+    move_id = master_move_id++;
   };
   
   ~MovesTreeNode() { Flush(); };
@@ -39,6 +48,9 @@ public:
     possible_moves.erase(possible_moves.begin(),possible_moves.end());
   };
 
+  int ID() { return move_id; };
+  
+  int move_id;
   std::vector<MovesTreeNode *> possible_moves;  
 };
 
@@ -88,7 +100,10 @@ class MovesTree {
   int NextColor(int current_color) { return (current_color == WHITE) ? BLACK : WHITE; };
   
   int MaxLevels() { return max_levels; };
-  
+
+  void GraphMovesToFile(const std::string &outfile, MovesTreeNode *node);
+  void GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level);
+
  protected:
   MovesTreeNode *root_node;
 

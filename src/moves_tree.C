@@ -2,12 +2,15 @@
 #include <stdexcept>
 #include <unistd.h>
 #include <iostream>
+#include <sstream>
 #include <stdlib.h>
 #include <algorithm>
 
 #include <chess.h>
 
 namespace SeaChess {
+
+int master_move_id;
   
 //***********************************************************************************************
 // build up tree of moves; pick the best one. minimax...
@@ -15,12 +18,15 @@ namespace SeaChess {
 
 int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_move) {
   eval_count = 0;
+  master_move_id = 0;
   
   ChooseMoveInner(root_node,game_board,Color(),0);
   PickBestMove(root_node,game_board,NULL /*suggested_move*/);
 
   next_move->Set((Move *) root_node);
-		  
+
+  GraphMovesToFile("moves", root_node);
+
   return eval_count; // return total # of moves evaluated
 }
 
@@ -326,4 +332,70 @@ Board MovesTree::MakeMove(Board &board, MovesTreeNode *pv) {
   return updated_board;
 }
 
+//***********************************************************************************************
+// graph game tree to file...
+//***********************************************************************************************
+
+void MovesTree::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node) {
+    char tbuf[1024];
+    sprintf(tbuf,"%s.dot",outfile.c_str());
+    
+    std::ofstream grfile;
+
+    grfile.open(tbuf);
+    grfile << "digraph {\n";
+    int level = 0;
+
+    GraphMoves(grfile,node,level);
+
+    grfile << "}\n";
+    grfile.close();
+
+    // only small graphs can be processed by Graphviz dot program...
+
+    sprintf(tbuf,"dot -Tpdf -o %s.pdf %s.dot",outfile.c_str(),outfile.c_str());
+
+    // converting large graph takes long time and may not complete...
+    //if (system(tbuf))
+    //  std::cerr << "WARNING: Problem creating graph pdf?" << std::endl;
+
+    std::cout << "\nTo create graph pdf use: '" << tbuf << "'" << std::endl;
+ }
+ 
+void MovesTree::GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level) {
+    Board gb;
+
+    std::stringstream this_vertex;
+    std::string node_color_str;
+    std::stringstream nlabel;
+
+    node_color_str = (node->Color() == WHITE) ? "red" : "black";
+
+    int node_id = node->ID();
+    
+    if (level == 0)
+      this_vertex << "Root";
+    else
+      this_vertex << "N_" << node_id;
+
+    nlabel << node->MoveScore() << "/" << node->Score();
+
+    grfile << this_vertex.str() << "[color=\"" << node_color_str << "\",label=\"" << nlabel.str() << "\"," 
+            << "fontcolor=\"" << node_color_str << "\"];\n"; 
+
+    for (auto pmi = node->possible_moves.begin(); pmi != node->possible_moves.end(); pmi++) {
+       MovesTreeNode *pm = *pmi;
+       std::stringstream next_vertex;
+       int pm_id = pm->ID();
+       next_vertex << "N_" << pm_id;
+       std::stringstream arc_label;
+       Board game_board;
+       arc_label << Engine::EncodeMove(game_board,*pm);
+       std::string move_color_str = (pm->Color() == WHITE) ? "red" : "black";
+       grfile << this_vertex.str() << " -> " << next_vertex.str() << "[label=\"" << arc_label.str() 
+              << "\",color=\"" << move_color_str << "\"];\n";
+       GraphMoves(grfile,&(*pm),level + 1);
+    }
+ }
+  
 };

@@ -32,6 +32,7 @@ public:
     check = false;
     capture_type = _capture_type;
     score = 0;
+    move_score = 0;
   };
 
  void Set(const Move *src) {
@@ -44,6 +45,7 @@ public:
     check              = src->check;
     capture_type       = src->capture_type;
     score              = src->score;
+    move_score         = src->move_score;
   };
 
   // move comparison...
@@ -89,6 +91,11 @@ public:
     assert ( (_score >= INT_LEAST16_MIN) && (_score <= INT_LEAST16_MAX) );
     score = _score;
   };
+
+  // 'move' score used for debug purposes
+  
+  int MoveScore() { return move_score; };
+  void SetMoveScore(int _move_score) { move_score = _move_score; };
   
   void SetInvalid() { start_row = INVALID_INDEX; };
   
@@ -121,9 +128,12 @@ protected:
 
   unsigned int  check              : 1; // set during 
   unsigned int  castle_block_color : 2; //    possible-moves generation; check at eval time.
+
+  // int_least16_t - ranges from INT_LEAST16_MIN to INT_LEAST16_MAX
   
-  int_least16_t score;                  // ranges from INT_LEAST16_MIN to INT_LEAST16_MAX
+  int_least16_t score;                  // cumulative score
   //int score;
+  int_least16_t move_score;             // score for this move alone
 };
 
 };

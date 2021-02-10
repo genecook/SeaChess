@@ -344,31 +344,4 @@ void Engine::Load(std::string loadFile) {
   iFile.close();
 }
 
-//***********************************************************************************************
-// graph entire game tree to file...
-//***********************************************************************************************
-
- void Engine::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node) {
-    char tbuf[1024];
-    sprintf(tbuf,"%s.dot",outfile.c_str());
-    
-    std::ofstream grfile;
-
-    grfile.open(tbuf);
-    grfile << "digraph {\n";
-    int level = 0;
-    int move_index = 0;
-
-    GraphMoves(grfile,node,level,move_index);
-
-    grfile << "}\n";
-    grfile.close();
-
-    // only small graphs can be processed by Graphviz dot program...
-
-    sprintf(tbuf,"dot -Tpdf -o %s.pdf %s.dot",outfile.c_str(),outfile.c_str());
-    if (system(tbuf))
-      std::cerr << "WARNING: Problem creating graph pdf?" << std::endl;
- }
-
 }

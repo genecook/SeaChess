@@ -68,8 +68,16 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
      //   * minimize score for opponent - select move that minimizes impact of opponents move
      if (maximize_score) {
        if ((*pvi)->Score() > best_subtree_score) best_subtree_score = (*pvi)->Score();
+       if (best_subtree_score > alpha)
+	 alpha = best_subtree_score;
+       if (alpha > beta)
+       	 break;
      } else { 
        if ((*pvi)->Score() < best_subtree_score) best_subtree_score = (*pvi)->Score();
+       if (best_subtree_score < beta)
+	 beta = best_subtree_score;
+       if (beta < alpha)
+       	 break;
      }
   }
 

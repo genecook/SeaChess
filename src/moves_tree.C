@@ -5,7 +5,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <algorithm>
-
+#include <bits/stdc++.h>
 #include <chess.h>
 
 namespace SeaChess {
@@ -20,7 +20,7 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
   eval_count = 0;
   master_move_id = 0;
   
-  ChooseMoveInner(root_node,game_board,Color(),MaxLevels());
+  ChooseMoveInner(root_node,game_board,Color(),MaxLevels(),INT_MIN,INT_MAX);
   PickBestMove(root_node,game_board,NULL /*suggested_move*/);
 
   next_move->Set((Move *) root_node);
@@ -35,9 +35,10 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
 // build up tree of moves; pick the best one. minimax...
 //***********************************************************************************************
 
-void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color, int current_level) {
+  void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_board,
+				  int current_color, int current_level, int alpha, int beta) {
   
-  eval_count++;
+  eval_count++; // keep track of total # of moves evaluated
   
   if (current_level == 0) {
     EvalBoard(current_node,current_board); // evaluate leaf node only
@@ -45,45 +46,35 @@ void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_boar
   }
   
   // amend the current node with all possible moves for the current board/color...
-  
-  bool in_check = GetMoves(current_node,current_board,current_color);
+  bool in_check = GetMoves(current_node,current_board,current_color,true,true);
 
-  // recursive descent for each possible move, for N levels...
-  
-  for (auto pvi = current_node->possible_moves.begin(); pvi != current_node->possible_moves.end(); pvi++) {
-     Board updated_board = MakeMove(current_board,*pvi); 
-     ChooseMoveInner(*pvi,updated_board,NextColor(current_color),current_level - 1);
-  }
-  
   // no moves to be made? -- then its checkmate or a draw...
-  
   if (current_node->possible_moves.size() == 0) {
-    //EvalMove(current_node,current_board,in_check ? CHECKMATE : DRAW);
+    EvalBoard(current_node,current_board,in_check ? CHECKMATE : DRAW);
     current_node->SetOutcome(in_check ? CHECKMATE : DRAW);
     return;
   }
-
-  // update sub-tree node scores from current score...
-
-  bool use_positive_score = current_color == Color();
-
-  int subtree_score = use_positive_score ? -1000000 : 1000000;
+  
+  // recursive descent for each possible move, for N levels...
+  
+  bool maximize_score = current_color == Color();
+  int best_subtree_score = maximize_score ? -1000000 : 1000000;
   
   for (auto pvi = current_node->possible_moves.begin(); pvi != current_node->possible_moves.end(); pvi++) {
+     Board updated_board = MakeMove(current_board,*pvi); 
+     ChooseMoveInner(*pvi,updated_board,NextColor(current_color),current_level - 1,alpha,beta);
      // look for 'best' score --
-     //   * positive score for 'our' player indicates the best score
-     //   * negative score for opponents best score, and thus move to be avoided
-
-    if (use_positive_score) {
-       if ((*pvi)->Score() > subtree_score) subtree_score = (*pvi)->Score();
-    } else { 
-       if ((*pvi)->Score() < subtree_score) subtree_score = (*pvi)->Score();
-    }
+     //   * maximize score for 'our' player - select move thaty maximizes score
+     //   * minimize score for opponent - select move that minimizes impact of opponents move
+     if (maximize_score) {
+       if ((*pvi)->Score() > best_subtree_score) best_subtree_score = (*pvi)->Score();
+     } else { 
+       if ((*pvi)->Score() < best_subtree_score) best_subtree_score = (*pvi)->Score();
+     }
   }
 
-  // set this nodes score to the appropriate sub-tree score...
-
-  current_node->SetScore(subtree_score);
+  // set this nodes score to the best sub-tree score...
+  current_node->SetScore(best_subtree_score);
 }
 
 //***********************************************************************************************
@@ -137,7 +128,7 @@ bool movesortfunction(MovesTreeNode *m1, MovesTreeNode *m2) {
   return abs(m1->Score()) > abs(m2->Score());
 }
   
-bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool avoid_check) {
+bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool avoid_check, bool sort_moves) {
   std::vector<Move> all_possible_moves;
   
   bool in_check = GetMoves(&all_possible_moves,game_board,color,avoid_check);
@@ -146,11 +137,14 @@ bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool 
      node->AddMove(*pmi);
   }
 
-  //for (auto pmi = node->possible_moves.begin(); pmi != node->possible_moves.end(); pmi++) {
-  //   EvalMove(*pmi,game_board); // evaluate every move to yield raw score
-  //}
-
-  //std::sort(node->possible_moves.begin(), node->possible_moves.end(), movesortfunction);
+  if (sort_moves) {
+    for (auto pmi = node->possible_moves.begin(); pmi != node->possible_moves.end(); pmi++) {
+       Board updated_board = MakeMove(game_board,*pmi); 
+       EvalBoard(*pmi,updated_board); // evaluate every move to yield raw score
+    }
+    std::sort(node->possible_moves.begin(), node->possible_moves.end(), movesortfunction);
+    // leave move scores in tact - ASSUME move scores will be overwritten 
+  }
   
   return in_check;
 }
@@ -256,7 +250,7 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
   // moves with the same score. lets randomize the list, both to make things more
   // interesting and to get more test coverage...
   
-  std::random_shuffle( root_node->possible_moves.begin(), root_node->possible_moves.end() );
+  //std::random_shuffle( root_node->possible_moves.begin(), root_node->possible_moves.end() );
 
   //std::cout << "[PickBestMove] entered..." << std::endl;
   

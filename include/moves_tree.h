@@ -80,7 +80,8 @@ class MovesTree {
 
   int ChooseMove(Move *next_move, Board &game_board,Move *suggested_move);
 
-  void ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color, int current_level);
+  void ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color,
+		       int current_level, int alpha, int beta);
 
   void EvalMove(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
   int  ScoreMove(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
@@ -88,7 +89,8 @@ class MovesTree {
   void EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
 
   bool GetMoves(std::vector<Move> *possible_moves, Board &game_board, int color,bool avoid_check = true);
-  bool GetMoves(MovesTreeNode *current_node, Board &current_board, int current_color, bool avoid_check = true);
+  bool GetMoves(MovesTreeNode *current_node, Board &current_board, int current_color,
+		bool avoid_check = true, bool sort_moves = false);
 
   void PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *suggested_move);
   bool BestScore(MovesTreeNode *this_move, MovesTreeNode *previous_move);

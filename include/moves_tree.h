@@ -9,27 +9,37 @@
 #include <stdlib.h>
 #include <vector>
 
+//#define GRAPH_SUPPORT 1
+
 namespace SeaChess {
 
+#ifdef GRAPH_SUPPORT
 extern int master_move_id;
+#endif
   
 class MovesTreeNode : public Move {
 public:
   MovesTreeNode() {
     InitMove();
+#ifdef GRAPH_SUPPORT
     move_id = master_move_id++;
+#endif
   };
   
   MovesTreeNode(int start_row, int start_column, int end_row, int end_column, int color,
 		int outcome = INVALID_INDEX, int capture_type = INVALID_INDEX) {
     InitMove(start_row, start_column, end_row, end_column, color, outcome, capture_type);
+#ifdef GRAPH_SUPPORT
     move_id = master_move_id++;
+#endif
   };
 
   MovesTreeNode(Move move) {
     InitMove(move.StartRow(), move.StartColumn(), move.EndRow(), move.EndColumn(),
 	     move.Color(), move.Outcome(), move.Check(), move.CaptureType());
+#ifdef GRAPH_SUPPORT
     move_id = master_move_id++;
+#endif
   };
   
   ~MovesTreeNode() { Flush(); };
@@ -48,9 +58,10 @@ public:
     possible_moves.erase(possible_moves.begin(),possible_moves.end());
   };
 
+#ifdef GRAPH_SUPPORT
   int ID() { return move_id; };
-  
   int move_id;
+#endif
   std::vector<MovesTreeNode *> possible_moves;  
 };
 

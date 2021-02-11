@@ -10,7 +10,9 @@
 
 namespace SeaChess {
 
+#ifdef GRAPH_SUPPORT
 int master_move_id;
+#endif
   
 //***********************************************************************************************
 // build up tree of moves; pick the best one. minimax...
@@ -18,7 +20,10 @@ int master_move_id;
 
 int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_move) {
   eval_count = 0;
+  
+#ifdef GRAPH_SUPPORT
   master_move_id = 0;
+#endif
   
   ChooseMoveInner(root_node,game_board,Color(),MaxLevels(),INT_MIN,INT_MAX);
   PickBestMove(root_node,game_board,NULL /*suggested_move*/);
@@ -337,6 +342,12 @@ Board MovesTree::MakeMove(Board &board, MovesTreeNode *pv) {
 //***********************************************************************************************
 
 void MovesTree::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node) {
+#ifndef GRAPH_SUPPORT
+    std::cout << "NOTE: This configuration does NOT support moves-tree graphing." << std::endl;
+    return;
+#else  
+    int node_ID = -1;
+
     char tbuf[1024];
     sprintf(tbuf,"%s.dot",outfile.c_str());
     
@@ -360,9 +371,13 @@ void MovesTree::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node
     //  std::cerr << "WARNING: Problem creating graph pdf?" << std::endl;
 
     std::cout << "\nTo create graph pdf use: '" << tbuf << "'" << std::endl;
+#endif
  }
  
 void MovesTree::GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level) {
+#ifndef GRAPH_SUPPORT
+    return;
+#else  
     Board gb;
 
     std::stringstream this_vertex;
@@ -372,7 +387,7 @@ void MovesTree::GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level
     node_color_str = (node->Color() == WHITE) ? "red" : "black";
 
     int node_id = node->ID();
-    
+
     if (level == 0)
       this_vertex << "Root";
     else
@@ -396,6 +411,7 @@ void MovesTree::GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level
               << "\",color=\"" << move_color_str << "\"];\n";
        GraphMoves(grfile,&(*pm),level + 1);
     }
+#endif  
  }
-  
+
 };

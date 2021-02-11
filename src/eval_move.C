@@ -64,7 +64,6 @@ int MovesTree::ScoreMove(MovesTreeNode *move, Board &current_board, int forced_s
 
 void MovesTree::EvalMove(MovesTreeNode *move, Board &current_board, int forced_score) {
   move->SetScore(ScoreMove(move,current_board,forced_score));
-  move->SetMoveScore(move->Score());
 }
 
 /* simple-minded move evaluation from shannon...
@@ -125,10 +124,7 @@ void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_
               + 3 * ((this_side.bishops - other_side.bishops) + (this_side.knights - other_side.knights) )
               + 1 * (this_side.pawns - other_side.pawns);
 
-  //score = score * bias;
-
   move->SetScore(score);
-  move->SetMoveScore(score);
 }
   
 }

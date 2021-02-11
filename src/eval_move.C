@@ -78,6 +78,13 @@ f(p) = 200(K-K')
 */
   
 void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score) {
+  switch(forced_score) {
+    case CHECKMATE: move->SetScore(10000); return; break;
+    case DRAW:      move->SetScore(2000);  return; break;
+    case CHECK:     move->SetScore(1000);  return; break;
+    default: break;
+  }
+  
   // 'bias' move based on which side's move is being evaluated...
 
   struct piece_counts {

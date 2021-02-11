@@ -67,6 +67,63 @@ void MovesTree::EvalMove(MovesTreeNode *move, Board &current_board, int forced_s
   move->SetMoveScore(move->Score());
 }
 
+/* simple-minded move evaluation from shannon...
+f(p) = 200(K-K')
+       + 9(Q-Q')
+       + 5(R-R')
+       + 3(B-B' + N-N')
+       + 1(P-P')
+       - 0.5(D-D' + S-S' + I-I')
+       + 0.1(M-M') + ...
+*/
+  
+void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score) {
+  // 'bias' move based on which side's move is being evaluated...
+
+  struct piece_counts {
+    piece_counts() : kings(0),queens(0),rooks(0),bishops(0),knights(0),pawns(0) {};
+    int kings;
+    int queens;
+    int rooks;
+    int bishops;
+    int knights;
+    int pawns;
+  };
+
+  piece_counts this_side;
+  piece_counts other_side;
+
+  for (int i = 0; i < 8; i++) {
+     for (int j = 0; j < 8; j++) {
+        int piece_type, piece_color;
+        if (current_board.GetPiece(piece_type,piece_color,i,j)) {
+	  piece_counts *side = (piece_color == Color()) ? &this_side : &other_side;
+	  switch(piece_type) {
+	    case KING:   side->kings++;   break;
+	    case QUEEN:  side->queens++;  break;
+	    case ROOK:   side->rooks++;   break;
+	    case BISHOP: side->bishops++; break;
+	    case KNIGHT: side->knights++; break;
+	    case PAWN:   side->pawns++;  break;
+	    default: break;
+	  }
+	}
+     }
+  }
+
+  assert(this_side.kings == other_side.kings);
+  
+  int score = + 9 * (this_side.queens - other_side.queens)
+              + 5 * (this_side.rooks - other_side.rooks)
+              + 3 * ((this_side.bishops - other_side.bishops) + (this_side.knights - other_side.knights) )
+              + 1 * (this_side.pawns - other_side.pawns);
+
+  //score = score * bias;
+
+  move->SetScore(score);
+  move->SetMoveScore(score);
+}
+  
 }
 
 

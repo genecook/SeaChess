@@ -20,7 +20,7 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
   eval_count = 0;
   master_move_id = 0;
   
-  ChooseMoveInner(root_node,game_board,Color(),0);
+  ChooseMoveInner(root_node,game_board,Color(),MaxLevels());
   PickBestMove(root_node,game_board,NULL /*suggested_move*/);
 
   next_move->Set((Move *) root_node);
@@ -37,13 +37,13 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
 
 void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color, int current_level) {
   
-  EvalMove(current_node,current_board); // evaluate every move to yield raw score
-
   eval_count++;
   
-  if (current_level == MaxLevels())
+  if (current_level == 0) {
+    EvalBoard(current_node,current_board); // evaluate leaf node only
     return;  
-
+  }
+  
   // amend the current node with all possible moves for the current board/color...
   
   bool in_check = GetMoves(current_node,current_board,current_color);
@@ -52,50 +52,38 @@ void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_boar
   
   for (auto pvi = current_node->possible_moves.begin(); pvi != current_node->possible_moves.end(); pvi++) {
      Board updated_board = MakeMove(current_board,*pvi); 
-     ChooseMoveInner(*pvi,updated_board,NextColor(current_color),current_level + 1);
+     ChooseMoveInner(*pvi,updated_board,NextColor(current_color),current_level - 1);
   }
   
   // no moves to be made? -- then its checkmate or a draw...
   
   if (current_node->possible_moves.size() == 0) {
-    EvalMove(current_node,current_board,in_check ? CHECKMATE : DRAW);
+    //EvalMove(current_node,current_board,in_check ? CHECKMATE : DRAW);
     current_node->SetOutcome(in_check ? CHECKMATE : DRAW);
     return;
   }
 
   // update sub-tree node scores from current score...
 
-  int subtree_score = 0;
-  bool init_subtree_score = true;
-
   bool use_positive_score = current_color == Color();
+
+  int subtree_score = use_positive_score ? -1000000 : 1000000;
   
   for (auto pvi = current_node->possible_moves.begin(); pvi != current_node->possible_moves.end(); pvi++) {
-     if (init_subtree_score) {
-       subtree_score = (*pvi)->Score();
-       init_subtree_score = false;
-       continue;
-     }
-
      // look for 'best' score --
      //   * positive score for 'our' player indicates the best score
      //   * negative score for opponents best score, and thus move to be avoided
 
-     bool better_score = false;
-
-     if (use_positive_score)
-       better_score = (*pvi)->Score() > subtree_score;
-     else 
-       better_score = (*pvi)->Score() < subtree_score;
-     
-     if (better_score) {
-       subtree_score = (*pvi)->Score();
-     }
+    if (use_positive_score) {
+       if ((*pvi)->Score() > subtree_score) subtree_score = (*pvi)->Score();
+    } else { 
+       if ((*pvi)->Score() < subtree_score) subtree_score = (*pvi)->Score();
+    }
   }
 
-  // augment this nodes raw score with the appropriate sub-tree score...
+  // set this nodes score to the appropriate sub-tree score...
 
-  current_node->SetScore(current_node->Score() + subtree_score);
+  current_node->SetScore(subtree_score);
 }
 
 //***********************************************************************************************
@@ -145,14 +133,24 @@ bool MovesTree::GetMoves(std::vector<Move> *possible_moves, Board &game_board, i
   return in_check;
 }
 
+bool movesortfunction(MovesTreeNode *m1, MovesTreeNode *m2) {
+  return abs(m1->Score()) > abs(m2->Score());
+}
+  
 bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool avoid_check) {
   std::vector<Move> all_possible_moves;
   
   bool in_check = GetMoves(&all_possible_moves,game_board,color,avoid_check);
-  
+
   for (auto pmi = all_possible_moves.begin(); pmi != all_possible_moves.end(); pmi++) {
      node->AddMove(*pmi);
   }
+
+  //for (auto pmi = node->possible_moves.begin(); pmi != node->possible_moves.end(); pmi++) {
+  //   EvalMove(*pmi,game_board); // evaluate every move to yield raw score
+  //}
+
+  //std::sort(node->possible_moves.begin(), node->possible_moves.end(), movesortfunction);
   
   return in_check;
 }
@@ -378,7 +376,7 @@ void MovesTree::GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level
     else
       this_vertex << "N_" << node_id;
 
-    nlabel << node->MoveScore() << "/" << node->Score();
+    nlabel /* << node->MoveScore() << "/" */ << node->Score();
 
     grfile << this_vertex.str() << "[color=\"" << node_color_str << "\",label=\"" << nlabel.str() << "\"," 
             << "fontcolor=\"" << node_color_str << "\"];\n"; 

@@ -85,6 +85,8 @@ class MovesTree {
   void EvalMove(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
   int  ScoreMove(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
 
+  void EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
+
   bool GetMoves(std::vector<Move> *possible_moves, Board &game_board, int color,bool avoid_check = true);
   bool GetMoves(MovesTreeNode *current_node, Board &current_board, int current_color, bool avoid_check = true);
 

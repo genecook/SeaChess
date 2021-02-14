@@ -26,7 +26,7 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
 #endif
   
   ChooseMoveInner(root_node,game_board,Color(),MaxLevels(),INT_MIN,INT_MAX);
-  PickBestMove(root_node,game_board,NULL /*suggested_move*/);
+  PickBestMove(root_node,game_board,suggested_move);
 
   next_move->Set((Move *) root_node);
 

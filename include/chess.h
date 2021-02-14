@@ -10,6 +10,7 @@ namespace SeaChess {
   enum OUTCOME { UNKNOWN=0, SIMPLE_MOVE, CAPTURE, PROMOTION, THREAT, CHECK, CHECKMATE, DRAW, RESIGN, SQUARE_BLOCKED };
 };
 
+#include <stdexcept>
 #include <assert.h>
 #include <chess_utils.h>
 #include <board.h>

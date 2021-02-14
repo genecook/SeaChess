@@ -252,6 +252,24 @@ std::string Engine::UserMove(std::string opponents_move_str) {
     return "Illegal move (in or moving into check): " + opponents_move_str;
   }
 
+  std::vector<Move> all_possible_moves;
+  
+  moves_tree.GetMoves(&all_possible_moves,game_board,OpponentsColor());
+
+  bool this_move_is_possible = false;
+  
+  for (auto pmi = all_possible_moves.begin(); pmi != all_possible_moves.end(); pmi++) {
+    if (*pmi == omove) {
+      this_move_is_possible = true;
+      break;
+    }
+  }
+
+  if (!this_move_is_possible) {
+    std::cout << "# Invalid move for " << ColorAsStr(OpponentsColor()) << std::endl;
+    return "Illegal move: " + opponents_move_str;
+  }
+  
   game_board = tmp_board;
   
   return "";

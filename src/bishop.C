@@ -11,7 +11,7 @@ namespace SeaChess {
 //                 that are either not blocked or occupied by a piece that can
 //                 be taken...
 
-void Bishop::Moves( std::vector<Move> *moves, Board &the_board, int color, int row, int column ) {
+  void Bishop::Moves( std::vector<Move> *moves, Board &the_board, int color, int row, int column, bool in_check ) {
   MovesDiagonal(moves,the_board,color,row,column);
 }
 

@@ -12,7 +12,7 @@ namespace SeaChess {
 //         that are either not blocked or occupied by a piece that can be taken...
 //***********************************************************************************************
 
-void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row, int column ) {
+  void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row, int column, bool in_check ) {
   int row_increment = (color == WHITE) ? 1 : -1; // white pawns move up; black pawns move down...
 
   // check for en passant from the current position...
@@ -49,9 +49,6 @@ void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row
 		     || the_board.OpposingKing(end_row + row_increment,column + 1,color)) ) {
         moves->back().SetCheck();
       }
-      // this position could block opponents ability to castle...
-      else if (!on_starting_row)
-        EvalBlocksCastling(moves,the_board,color,end_row,column); 
     }
   }
 
@@ -83,7 +80,7 @@ void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row
   move_good = (move_outcome == CAPTURE);
 
   // from 1st capture position look for check:
-  if ( move_good) {
+  if (move_good) {
     if (the_board.EndingRow(capture_row,color)) {
       moves->back().SetOutcome(PROMOTION);
       if (CheckOnPromotion(the_board,capture_row,capture_column,color)) {
@@ -92,9 +89,6 @@ void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row
     } else if ( the_board.OpposingKing(capture_row + row_increment,capture_column - 1,color)
 	        || the_board.OpposingKing(capture_row + row_increment,capture_column + 1,color) ) {
       moves->back().SetCheck();
-    } else {
-      // this position could block opponents ability to castle...
-      EvalBlocksCastling(moves,the_board,color,capture_row,capture_column); 
     }
   }
 
@@ -102,8 +96,7 @@ void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row
   
   capture_column = column + 1; // capture row same
   
-  move_outcome = EvalMoveTo(moves,the_board,color,row,column,capture_row,capture_column,
-			    can_capture, must_capture);
+  move_outcome = EvalMoveTo(moves,the_board,color,row,column,capture_row,capture_column,can_capture,must_capture);
   move_good = (move_outcome == CAPTURE);
 
   // from 2nd capture position look for check:
@@ -118,12 +111,9 @@ void Pawn::Moves( std::vector<Move> *moves, Board &the_board, int color, int row
     } else if ( the_board.OpposingKing(capture_row + row_increment,capture_column - 1,color)
 	       || the_board.OpposingKing(capture_row + row_increment,capture_column + 1,color) ) {
       moves->back().SetCheck();
-    } else {
-      // this position could block opponents ability to castle...
-      EvalBlocksCastling(moves,the_board,color,capture_row,capture_column);
     }
   }
-}
+  }
 
 //***********************************************************************************************
 // Check - for this piece, is the opposing king in check.

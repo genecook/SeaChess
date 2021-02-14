@@ -142,10 +142,6 @@ bool Piece::MovesDhvHelper( std::vector<Move> *moves, int checks_direction, Boar
   }
   if (set_check)
     moves->back().SetCheck();
-  else {
-    // not yet...
-    //node->SetCastlingBlockedPossibleMove(the_board.EvalBlockCastling(color,end_row,end_column));
-  }
   
   if (move_outcome == CAPTURE) return true;
   return false;

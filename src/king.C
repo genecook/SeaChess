@@ -11,7 +11,7 @@ namespace SeaChess {
 //                 that are either not blocked or occupied by a piece that can
 //                 be taken...
 
-void King::Moves( std::vector<Move> *moves, Board &the_board, int color, int row, int column ) {
+void King::Moves( std::vector<Move> *moves, Board &the_board, int color, int row, int column, bool in_check ) {
   
   the_board.GetOpposingKing(opponents_king_row,opponents_king_column,color);
   
@@ -23,22 +23,13 @@ void King::Moves( std::vector<Move> *moves, Board &the_board, int color, int row
      EvalMoveTo(moves,the_board,color,row,column,end_row,end_col);
   }
 
-  // when gathering moves, the kings moves must be gathered last (gag me),
-  // to allow any other move to set 'castling blocked' state...
-  
-  bool castling_blocked = false;
-  for (auto pmi = moves->begin(); pmi != moves->end(); pmi++) {
-    castling_blocked |= (*pmi).CastlingBlocked(color);
-  }
-  
-  if (castling_blocked) {
-    // can't castle - opponents piece 'covering' a castle square...
-  } else {
+  if (in_check) {
+    // cannot castle out of check...
+  } else if (CastlingEnabled()) {
     int end_col = 0;
-
     if ((end_col = the_board.CastleValid(color,true /* = kings side castling */)) != 0)
       EvalMoveTo(moves,the_board,color,row,column,row,end_col);
-    if ((end_col = the_board.CastleValid(color,false /* = queens side castling */)) != 0)
+    else if ((end_col = the_board.CastleValid(color,false /* = queens side castling */)) != 0)
       EvalMoveTo(moves,the_board,color,row,column,row,end_col);
   }
 }

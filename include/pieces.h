@@ -29,11 +29,16 @@ public:
   void SetSpeculativeMode(bool _speculative_mode=false ) { speculative_mode = _speculative_mode; };
   bool SpeculativeMode() { return speculative_mode; };
   
-  virtual void Moves(std::vector<Move> *moves, Board &the_board, int color, int row, int column) {};
+  virtual void Moves(std::vector<Move> *moves, Board &the_board, int color, int row, int column, bool in_check) {};
 
   virtual std::string Icon() { return "?"; };
 
   virtual bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column) { return false; };
+
+  // Check was implemented 1st. realized later than same method can be used to see if piece 'covers' (threatens) some square...
+  virtual bool Covers(Board &the_board, int kings_row, int kings_column, int color, int row, int column) {
+    return Check(the_board,kings_row,kings_column,color,row,column);
+  };
 
 protected:  
   int EvalMoveTo(std::vector<Move> *moves, Board &the_board, int color, int current_row, int current_column, int moveto_row,
@@ -73,7 +78,7 @@ public:
   Pawn() {};
   int Type() { return PAWN; };
   std::string Name() { return "pawn"; };
-  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column);
+  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column, bool in_check = false);
   std::string Icon() { return "P"; };
   bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column);
 private:
@@ -86,7 +91,7 @@ public:
   Rook() {};
   int Type() { return ROOK; };
   std::string Name() { return "rook"; };
-  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column);
+  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column, bool in_check = false);
   std::string Icon() { return "R"; };
   bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column);  
 };
@@ -96,7 +101,7 @@ public:
   Knight() {};
   int Type() { return KNIGHT; };
   std::string Name() { return "knight"; };
-  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column);
+  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column, bool in_check = false);
   std::string Icon() { return "N"; };
   bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column);  
 };
@@ -106,19 +111,23 @@ public:
   Bishop() {};
   int Type() { return BISHOP; };
   std::string Name() { return "bishop"; };
-  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column);
+  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column, bool in_check = false);
   std::string Icon() { return "B"; };
   bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column);  
 };
 
 class King : public Piece {
 public:
-  King() {};
+  King() : castling_enabled(true) {};
   int Type() { return KING; };
   std::string Name() { return "king"; };
-  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column);
+  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column, bool in_check);
   std::string Icon() { return "K"; };
   bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column);
+  
+  void SetCastlingEnabled(bool _castling_enabled) { castling_enabled = _castling_enabled; };
+  bool CastlingEnabled() { return castling_enabled; };
+  
 private:
   bool MoveCausesCheck(Board &the_board, int kings_row, int kings_column, int color);
 
@@ -128,6 +137,8 @@ private:
   enum { NUM_MOVES=8 };
   const int rows[NUM_MOVES] = { 1,  1,  0, -1, -1, -1,  0,  1 };
   const int cols[NUM_MOVES] = { 0,  1,  1,  1,  0, -1, -1, -1 };
+
+  bool castling_enabled;
 };
 
 class Queen : public Piece {
@@ -135,7 +146,7 @@ public:
   Queen() {};
   int Type() { return QUEEN; };
   std::string Name() { return "queen"; };
-  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column);
+  void Moves(std::vector<Move> *moves, Board &the_board, int color, int board_row, int board_column, bool in_check = false);
   std::string Icon() { return "Q"; };
   bool Check(Board &the_board, int kings_row, int kings_column, int color, int row, int column);  
 };
@@ -149,14 +160,16 @@ class Pieces {
 public:
   Pieces() {};
 
-  void GetMoves(std::vector<Move> *moves, Board &game_board, int type, int color, int row, int column) {
+  void GetMoves(std::vector<Move> *moves, Board &game_board, int type, int color, int row, int column, bool in_check, bool castling_enabled = true) {
+
     switch(type) {
-      case PAWN:   pawn.Moves(moves,game_board,color,row,column); break;
-      case ROOK:   rook.Moves(moves,game_board,color,row,column); break;
-      case KNIGHT: knight.Moves(moves,game_board,color,row,column); break;
-      case BISHOP: bishop.Moves(moves,game_board,color,row,column); break;
-      case QUEEN:  queen.Moves(moves,game_board,color,row,column); break;
-      case KING:   king.Moves(moves,game_board,color,row,column); break;
+      case PAWN:   pawn.Moves(moves,game_board,color,row,column,in_check);   break;
+      case ROOK:   rook.Moves(moves,game_board,color,row,column,in_check);   break;
+      case KNIGHT: knight.Moves(moves,game_board,color,row,column,in_check); break;
+      case BISHOP: bishop.Moves(moves,game_board,color,row,column,in_check); break;
+      case QUEEN:  queen.Moves(moves,game_board,color,row,column,in_check);  break;
+      case KING:   king.SetCastlingEnabled(castling_enabled);
+	           king.Moves(moves,game_board,color,row,column,in_check);   break;
 	
       default:     throw std::runtime_error("Invalid chess piece type?");
                    break;
@@ -178,7 +191,7 @@ public:
     }
     return in_check;
   };
-  
+
 private:
   Pawn   pawn;
   Rook   rook;

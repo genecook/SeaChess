@@ -26,7 +26,7 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
 #endif
   
   ChooseMoveInner(root_node,game_board,Color(),MaxLevels(),INT_MIN,INT_MAX);
-  PickBestMove(root_node,game_board,NULL /*suggested_move*/);
+  PickBestMove(root_node,game_board,suggested_move);
 
   next_move->Set((Move *) root_node);
 
@@ -284,58 +284,45 @@ bool MovesTree::BestScore(MovesTreeNode *this_move, MovesTreeNode *previous_move
   return ( this_move->Score() > previous_move->Score() );
 }
 
-void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *suggested_move) {
-  bool have_moves = false; // true once we have a starting 'best' move 
-
-  // is there a suggested move?...
-  if ( (suggested_move != NULL) && suggested_move->Valid() ) {
-    // yes. see if this move corresponds to one of the move choices...
-    for (auto pvm = root_node->possible_moves.begin(); pvm != root_node->possible_moves.end(); pvm++) {
-       if ( (*pvm)->Match(suggested_move) ) {
-	 // it does. lets use the suggested move, and hope its a good one...
-         root_node->Set(*pvm);
-	 have_moves = true;
-	 break;
-       }
-    }
-  }
-
-  if (have_moves) {
-    return;
-  }
-
-  // look for the move with the best score...
-
-  // at least in the current implementation, there will be cases where there are multiple
-  // moves with the same score. lets randomize the list, both to make things more
-  // interesting and to get more test coverage...
+bool bestmovesortfunction(MovesTreeNode *m1, MovesTreeNode *m2) {
+  return (m1->Score() > m2->Score());
+}
   
-  //std::random_shuffle( root_node->possible_moves.begin(), root_node->possible_moves.end() );
+void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *suggested_move) {
+  if (root_node->possible_moves.size() == 0) {
+    // this is the root node. no moves can be made. will ASSUME draw or checkmate..."
+    root_node->SetOutcome(RESIGN);
+  }
+  
+  // sort from best move to worst, according to score...
+  
+  std::sort( root_node->possible_moves.begin(), root_node->possible_moves.end(), bestmovesortfunction );
 
-  //std::cout << "[PickBestMove] entered..." << std::endl;
+  // assume 1st score (after sort) will be the best...
+  
+  MovesTreeNode *best_move = *root_node->possible_moves.begin();
+  root_node->Set( best_move );
+  
+  std::cout << "BEST MOVE: " << (*best_move) << std::endl;
+  
+  // is there a suggested move?...
+
+  if (suggested_move == NULL)
+    return; // nope.
+
+  // yes. see if this move corresponds to one of the move choices...
   
   for (auto pvm = root_node->possible_moves.begin(); pvm != root_node->possible_moves.end(); pvm++) {
-    //std::cout << "\t" << *(*pvm) << std::endl;
-
-     if (!have_moves) {
-       root_node->Set(*pvm);
-       have_moves = true;
-       continue;
-     }
-     
-     if ( BestScore( *pvm, root_node ) ) {
+     // if the suggested move is located and its score is as least as good as the best score
+     // OR the best move isn't too interesting, then use the suggested move...
+     if ( (*pvm)->Match(suggested_move) ) {
+       std::cout << "SUGGESTED MOVE SCORE: " << (*pvm)->Score() << std::endl;
+       if ( ((*pvm)->Score() == best_move->Score()) || (best_move->Outcome() == SIMPLE_MOVE) ) {
+	 // it does. lets use the suggested move, and hope its a good one...
          root_node->Set(*pvm);
-         root_node->SetScore((*pvm)->Score());
+	 break;
+       }
      }
-  }
-
-  //std::cout << std::endl;
-  
-  if (have_moves) {
-    // there were some valid moves to choose from, cool
-  } else {
-    // this is the root node. no (valid) moves can be made. will ASSUME draw or checkmate..."
-    root_node->SetOutcome(RESIGN);
   }
 }
 

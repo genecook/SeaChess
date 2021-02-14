@@ -40,8 +40,8 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
 // build up tree of moves; pick the best one. minimax...
 //***********************************************************************************************
 
-  void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_board,
-				  int current_color, int current_level, int alpha, int beta) {
+void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_board,
+	         		int current_color, int current_level, int alpha, int beta) {
   
   eval_count++; // keep track of total # of moves evaluated
   
@@ -88,6 +88,13 @@ int MovesTree::ChooseMove(Move *next_move, Board &game_board, Move *suggested_mo
 
   // set this nodes score to the best sub-tree score...
   current_node->SetScore(best_subtree_score);
+  
+  if (current_level == MaxLevels()) {
+    // leave top level moves in place, for best-move analysis...
+  } else {
+    // we're thru with this sub-node. flush it to conserve memory...
+    current_node->Flush();
+  }
 }
 
 //***********************************************************************************************

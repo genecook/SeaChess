@@ -10,6 +10,8 @@ namespace SeaChess {
 
 //*********************************************************************
 // piece-square tables - used to add bonuses for good piece placement
+//
+// see https://www.chessprogramming.org/Simplified_Evaluation_Function
 //*********************************************************************
 
 int pawns_table[8][8] = { {  0,  0,  0,  0,  0,  0,  0,  0 },

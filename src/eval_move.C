@@ -7,83 +7,77 @@
 #include <chess.h>
 
 namespace SeaChess {
+
+//*********************************************************************
+// piece-square tables - used to add bonuses for good piece placement
+//*********************************************************************
+
+int pawns_table[8][8] = { {  0,  0,  0,  0,  0,  0,  0,  0 },
+                          { 50, 50, 50, 50, 50, 50, 50, 50 },
+                          { 10, 10, 20, 30, 30, 20, 10, 10 },
+                          {  5,  5, 10, 25, 25, 10,  5,  5 },
+                          {  0,  0,  0, 20, 20,  0,  0,  0 },
+                          {  5, -5,-10,  0,  0,-10, -5,  5 },
+                          {  5, 10, 10,-20,-20, 10, 10,  5 },
+                          {  0,  0,  0,  0,  0,  0,  0,  0 } };
   
-//*****************************************************************************************
-// assign weighting based on outcome of some move...
-//
-// score move,as follows:
-//
-//       outcome            score
-//   ----------------      -------
-//   forced checkmate        10000
-//   forced draw              2000
-//   forced check             1000
-//   check                      10
-//   queen captured            200
-//   bishop    "                90
-//   rook      "               100
-//   knight    "                75
-//   pawn      "                20
-//   pawn promotion*           200
-//   simple-move                 1
-//
-// *assumed to queen
-//*****************************************************************************************
+int knights_table[8][8] = { { -50,-40,-30,-30,-30,-30,-40,-50 },
+                            { -40,-20,  0,  0,  0,  0,-20,-40 },
+                            { -30,  0, 10, 15, 15, 10,  0,-30 },
+                            { -30,  5, 15, 20, 20, 15,  5,-30 },
+                            { -30,  0, 15, 20, 20, 15,  0,-30 },
+                            { -30,  5, 10, 15, 15, 10,  5,-30 },
+                            { -40,-20,  0,  5,  5,  0,-20,-40 },
+                            { -50,-40,-30,-30,-30,-30,-40,-50 } };
 
-int MovesTree::ScoreMove(MovesTreeNode *move, Board &current_board, int forced_score) {
-  // 'bias' move based on which side's move is being evaluated...
-
-  int bias = move->Color() != Color() ? -1 : 1;
-
-  // after a move has been made, set score based on the outcome of the move...
-
-  int score = 1; // token score: simple move
+int bishops_table[8][8] = { { -20,-10,-10,-10,-10,-10,-10,-20 },
+                            { -10,  0,  0,  0,  0,  0,  0,-10 },
+                            { -10,  0,  5, 10, 10,  5,  0,-10 },
+                            { -10,  5,  5, 10, 10,  5,  5,-10 },
+                            { -10,  0, 10, 10, 10, 10,  0,-10 },
+                            { -10, 10, 10, 10, 10, 10, 10,-10 },
+                            { -10,  5,  0,  0,  0,  0,  5,-10 },
+                            { -20,-10,-10,-10,-10,-10,-10,-20 } };
   
-  if (forced_score == CHECKMATE)
-    score = 10000;
-  else if (forced_score == DRAW)
-    score = 2000;
-  else if (forced_score == CHECK)
-    score = 1000;
-  else if (move->Check())
-    score = 10;
-  else if (move->Outcome() == CAPTURE)
-    switch(move->CaptureType()) {
-      case QUEEN:  score = 200; break;
-      case BISHOP: score = 90;  break;
-      case ROOK:   score = 100; break;
-      case KNIGHT: score = 75;  break;
-      case PAWN:   score = 20;  break;
-      default: break;
-    }
-  else if (move->Outcome() == PROMOTION)
-    score = 200; 
-
-  return score * bias;
-}
-
-void MovesTree::EvalMove(MovesTreeNode *move, Board &current_board, int forced_score) {
-  move->SetScore(ScoreMove(move,current_board,forced_score));
-}
-
-/* simple-minded move evaluation from shannon...
-f(p) = 200(K-K')
-       + 9(Q-Q')
-       + 5(R-R')
-       + 3(B-B' + N-N')
-       + 1(P-P')
-       - 0.5(D-D' + S-S' + I-I')
-       + 0.1(M-M') + ...
-*/
+int rooks_table[8][8] = { {  0,  0,  0,  0,  0,  0,  0,  0 },
+                          {  5, 10, 10, 10, 10, 10, 10,  5 },
+                          { -5,  0,  0,  0,  0,  0,  0, -5 },
+                          { -5,  0,  0,  0,  0,  0,  0, -5 },
+                          { -5,  0,  0,  0,  0,  0,  0, -5 },
+                          { -5,  0,  0,  0,  0,  0,  0, -5 },
+                          { -5,  0,  0,  0,  0,  0,  0, -5 },
+                          {  0,  0,  0,  5,  5,  0,  0,  0 } };
   
-void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score) {
-  switch(forced_score) {
-    case CHECKMATE: move->SetScore(10000); return; break;
-    case DRAW:      move->SetScore(2000);  return; break;
-    case CHECK:     move->SetScore(1000);  return; break;
-    default: break;
-  }
+int queens_table[8][8] = { { -20,-10,-10, -5, -5,-10,-10,-20 },
+                           { -10,  0,  0,  0,  0,  0,  0,-10 },
+                           { -10,  0,  5,  5,  5,  5,  0,-10 },
+                           {  -5,  0,  5,  5,  5,  5,  0, -5 },
+                           {   0,  0,  5,  5,  5,  5,  0, -5 },
+                           { -10,  5,  5,  5,  5,  5,  0,-10 },
+                           { -10,  0,  5,  0,  0,  0,  0,-10 },
+                           { -20,-10,-10, -5, -5,-10,-10,-20 } };
   
+int kings_table[8][8] = { { -30,-40,-40,-50,-50,-40,-40,-30 },
+                          { -30,-40,-40,-50,-50,-40,-40,-30 },
+                          { -30,-40,-40,-50,-50,-40,-40,-30 },
+                          { -30,-40,-40,-50,-50,-40,-40,-30 },
+                          { -20,-30,-30,-40,-40,-30,-30,-20 },
+                          { -10,-20,-20,-20,-20,-20,-20,-10 },
+                          {  20, 20,  0,  0,  0,  0, 20, 20 },
+                          {  20, 30, 10,  0,  0, 10, 30, 20 } };
+
+//*********************************************************************
+// simple-minded move evaluation from shannon...
+// f(p) = 200(K-K')
+//       + 9(Q-Q')
+//       + 5(R-R')
+//       + 3(B-B' + N-N')
+//       + 1(P-P')
+//       - 0.5(D-D' + S-S' + I-I')
+//       + 0.1(M-M') + ...
+//*********************************************************************
+
+int MovesTree::MaterialScore(Board &current_board) {
   // 'bias' move based on which side's move is being evaluated...
 
   struct piece_counts {
@@ -99,6 +93,8 @@ void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_
   piece_counts this_side;
   piece_counts other_side;
 
+  int piece_placement_bonus = 0;
+  
   for (int i = 0; i < 8; i++) {
      for (int j = 0; j < 8; j++) {
         int piece_type, piece_color;
@@ -113,16 +109,45 @@ void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_
 	    case PAWN:   side->pawns++;  break;
 	    default: break;
 	  }
+	  if (piece_color == Color()) {
+	    switch(piece_type) {
+	      case KING:   piece_placement_bonus += kings_table[i][j];   break;
+	      case QUEEN:  piece_placement_bonus += queens_table[i][j];  break;
+	      case ROOK:   piece_placement_bonus += rooks_table[i][j];   break;
+	      case BISHOP: piece_placement_bonus += bishops_table[i][j]; break;
+	      case KNIGHT: piece_placement_bonus += knights_table[i][j]; break;
+	      case PAWN:   piece_placement_bonus += pawns_table[i][j];   break;
+	      default: break;
+	    }
+	  }
 	}
      }
   }
 
   assert(this_side.kings == other_side.kings);
   
-  int score = + 9 * (this_side.queens - other_side.queens)
-              + 5 * (this_side.rooks - other_side.rooks)
-              + 3 * ((this_side.bishops - other_side.bishops) + (this_side.knights - other_side.knights) )
-              + 1 * (this_side.pawns - other_side.pawns);
+  int score = + 900 * (this_side.queens - other_side.queens)
+              + 500 * (this_side.rooks - other_side.rooks)
+              + 300 * ((this_side.bishops - other_side.bishops) + (this_side.knights - other_side.knights) )
+              + 100 * (this_side.pawns - other_side.pawns)
+              + piece_placement_bonus;
+
+  return score;
+}
+
+void MovesTree::EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score) {
+  // 'bias' score based on which side's move is being evaluated...
+
+  int bias = move->Color() != Color() ? -1 : 1;
+  
+  switch(forced_score) {
+    case CHECKMATE: move->SetScore(10000 * bias); return; break;
+    case DRAW:      move->SetScore(2000 * bias);  return; break;
+    case CHECK:     move->SetScore(1000 * bias);  return; break;
+    default: break;
+  }
+
+  int score = MaterialScore(current_board) * bias;
 
   move->SetScore(score);
 }

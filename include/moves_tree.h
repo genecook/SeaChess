@@ -87,6 +87,7 @@ class MovesTree {
   MovesTree(int _color, int _max_levels) : color(_color), max_levels(_max_levels) {
     root_node = new MovesTreeNode;
   };
+  
   ~MovesTree() { root_node->Flush(); delete root_node; };
 
   int ChooseMove(Move *next_move, Board &game_board,Move *suggested_move);
@@ -94,11 +95,9 @@ class MovesTree {
   void ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color,
 		       int current_level, int alpha, int beta);
 
-  void EvalMove(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
-  int  ScoreMove(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
-
   void EvalBoard(MovesTreeNode *move, Board &current_board, int forced_score=UNKNOWN);
-
+  int MaterialScore(Board &current_board);
+  
   bool GetMoves(std::vector<Move> *possible_moves, Board &game_board, int color,bool avoid_check = true);
   bool GetMoves(MovesTreeNode *current_node, Board &current_board, int current_color,
 		bool avoid_check = true, bool sort_moves = false);

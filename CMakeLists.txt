@@ -5,7 +5,7 @@ project(SeaChess VERSION 0.1)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -g -pthread")
+set(CMAKE_CXX_FLAGS "-std=c++11 -O3 -pthread")
 
 include_directories(include)
 
@@ -19,3 +19,18 @@ target_link_libraries(sea_chess sea_chess_lib)
 
 install(TARGETS sea_chess_lib DESTINATION ${CMAKE_SOURCE_DIR}/lib)
 install(TARGETS sea_chess DESTINATION ${CMAKE_SOURCE_DIR}/bin)
+
+enable_testing()
+
+add_test(NAME test1
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess")
+
+add_test(NAME test2
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test2 | ./sea_chess")
+
+add_test(NAME test3
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test3 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess")
+
+add_test(NAME test4
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.checkmate2 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess")
+

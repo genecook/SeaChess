@@ -1,0 +1,74 @@
+locale = en_US.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + my_engine ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") ./my_engine
+196 >first : xboard
+protover 2
+1198 <first : feature usermove=1 debug=1 sigint=0 sigterm=0 done=1
+1198 >first : accepted usermove
+1198 >first : accepted debug
+1199 >first : accepted sigint
+1199 >first : accepted sigterm
+1199 >first : accepted done
+1200 >first : new
+random
+1200 >first : level 40 5 0
+1200 >first : post
+1200 >first : hard
+2199 <first : # BBB new
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+2635 >first : time 30000
+2635 >first : otim 30000
+book hit = (NULL)
+2635 >first : usermove 2635 >first : e2e4
+3199 <first : # BBB usermove e2e4
+3199 <first : # of levels = 5
+3271 <first : move a7a6
+4809 >first : time 29936
+4809 >first : otim 29846
+book hit = (NULL)
+4809 >first : usermove 4809 >first : d2d4
+5271 <first : # BBB usermove d2d4
+5271 <first : # of levels = 5
+5331 <first : move a6a5
+6931 >first : time 29884
+6931 >first : otim 29686
+book hit = (NULL)
+6931 >first : usermove 6931 >first : b2b4
+7331 <first : # BBB usermove b2b4
+7331 <first : # of levels = 5
+7393 <first : move a5b4
+9007 >first : time 29837
+9007 >first : otim 29525
+book hit = (NULL)
+9007 >first : usermove 9007 >first : c2c3
+9394 <first : # BBB usermove c2c3
+9394 <first : # of levels = 5
+9443 <first : move b4c3
+12286 >first : time 29794
+12286 >first : otim 29240
+book hit = (NULL)
+12286 >first : usermove 12286 >first : f2f4
+12443 <first : # BBB usermove f2f4
+12443 <first : # of levels = 5
+12473 <first : move c3c2
+15876 >first : time 29775
+15876 >first : otim 28900
+book hit = (NULL)
+15877 >first : usermove 15877 >first : g2g4
+16473 <first : # BBB usermove g2g4
+16473 <first : # of levels = 5
+16502 <first : move b7b6
+GameEnds(29, xboard exit, 2)
+20148 >first : result * {xboard exit}
+20148 >first : force
+20148 >first : quit

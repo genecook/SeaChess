@@ -1,0 +1,967 @@
+locale = en_US.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + my_engine ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") ./my_engine
+150 >first : xboard
+protover 2
+154 <first : # game board:
+154 <first : #
+154 <first : # 8  BR BN BB BQ BK BB BN BR
+154 <first : # 7  BP BP BP BP BP BP BP BP
+154 <first : # 6  .  .  .  .  .  .  .  . 
+154 <first : # 5  .  .  .  .  .  .  .  . 
+154 <first : # 4  .  .  .  .  .  .  .  . 
+154 <first : # 3  .  .  .  .  .  .  .  . 
+154 <first : # 2  WP WP WP WP WP WP WP WP
+154 <first : # 1  WR WN WB WQ WK WB WN WR
+154 <first : 
+154 <first : #    a  b  c  d  e  f  g  h
+154 <first : 
+154 <first : 
+154 <first : feature usermove=1 debug=1 sigint=0 sigterm=0 done=1
+154 >first : accepted usermove
+154 >first : accepted debug
+154 >first : accepted sigint
+154 >first : accepted sigterm
+154 >first : accepted done
+155 >first : new
+random
+155 >first : level 40 5 0
+155 >first : post
+155 >first : hard
+1154 <first : # BBB new
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+10682 >first : time 30000
+10682 >first : otim 30000
+book hit = (NULL)
+10682 >first : usermove 10682 >first : e2e3
+11155 <first : # BBB usermove e2e3
+11155 <first : # of levels = 5
+11272 <first : # of moves evaluated: 407900
+11272 <first : # outcome: simple-move
+11276 <first : # game board after move:
+11276 <first : #
+11276 <first : # 8  BR BN BB BQ BK BB BN BR
+11276 <first : # 7  .  BP BP BP BP BP BP BP
+11276 <first : # 6  BP .  .  .  .  .  .  . 
+11276 <first : # 5  .  .  .  .  .  .  .  . 
+11276 <first : # 4  .  .  .  .  .  .  .  . 
+11276 <first : # 3  .  .  .  .  WP .  .  . 
+11276 <first : # 2  WP WP WP WP .  WP WP WP
+11276 <first : # 1  WR WN WB WQ WK WB WN WR
+11276 <first : 
+11276 <first : #    a  b  c  d  e  f  g  h
+11276 <first : 
+11276 <first : 
+11276 <first : move a7a6
+18862 >first : time 29940
+18862 >first : otim 29241
+book hit = (NULL)
+18862 >first : usermove 18862 >first : f1c4
+19276 <first : # BBB usermove f1c4
+19277 <first : # of levels = 5
+19404 <first : # of moves evaluated: 453005
+19404 <first : # outcome: simple-move
+19408 <first : # game board after move:
+19408 <first : #
+19408 <first : # 8  BR BN BB BQ BK BB BN BR
+19408 <first : # 7  .  BP BP BP BP BP BP BP
+19408 <first : # 6  .  .  .  .  .  .  .  . 
+19408 <first : # 5  BP .  .  .  .  .  .  . 
+19408 <first : # 4  .  .  WB .  .  .  .  . 
+19408 <first : # 3  .  .  .  .  WP .  .  . 
+19408 <first : # 2  WP WP WP WP .  WP WP WP
+19408 <first : # 1  WR WN WB WQ WK .  WN WR
+19408 <first : 
+19408 <first : #    a  b  c  d  e  f  g  h
+19408 <first : 
+19408 <first : 
+19408 <first : move a6a5
+22572 >first : time 29886
+22572 >first : otim 28925
+book hit = (NULL)
+22572 >first : usermove 22572 >first : d1f3
+23408 <first : # BBB usermove d1f3
+23408 <first : # of levels = 5
+23591 <first : # of moves evaluated: 667571
+23591 <first : # outcome: simple-move
+23598 <first : # game board after move:
+23598 <first : #
+23598 <first : # 8  BR BN BB BQ BK BB BN BR
+23598 <first : # 7  .  BP BP BP BP .  BP BP
+23598 <first : # 6  .  .  .  .  .  BP .  . 
+23598 <first : # 5  BP .  .  .  .  .  .  . 
+23598 <first : # 4  .  .  WB .  .  .  .  . 
+23598 <first : # 3  .  .  .  .  WP WQ .  . 
+23598 <first : # 2  WP WP WP WP .  WP WP WP
+23598 <first : # 1  WR WN WB .  WK .  WN WR
+23598 <first : 
+23598 <first : #    a  b  c  d  e  f  g  h
+23598 <first : 
+23598 <first : 
+23598 <first : move f7f6
+36647 >first : time 29783
+36647 >first : otim 27620
+book hit = (NULL)
+36647 >first : usermove 36647 >first : g1h3
+37599 <first : # BBB usermove g1h3
+37599 <first : # of levels = 5
+37760 <first : # of moves evaluated: 595197
+37760 <first : # outcome: simple-move
+37766 <first : # game board after move:
+37766 <first : #
+37766 <first : # 8  BR BN BB BQ BK BB BN BR
+37766 <first : # 7  .  BP BP BP BP .  BP BP
+37766 <first : # 6  .  .  .  .  .  BP .  . 
+37766 <first : # 5  .  .  .  .  .  .  .  . 
+37766 <first : # 4  BP .  WB .  .  .  .  . 
+37766 <first : # 3  .  .  .  .  WP WQ .  WN
+37766 <first : # 2  WP WP WP WP .  WP WP WP
+37766 <first : # 1  WR WN WB .  WK .  .  WR
+37766 <first : 
+37766 <first : #    a  b  c  d  e  f  g  h
+37766 <first : 
+37766 <first : 
+37766 <first : move a5a4
+39886 >first : time 29671
+39886 >first : otim 27408
+book hit = (NULL)
+39886 >first : usermove 39886 >first : h3g5
+40766 <first : # BBB usermove h3g5
+40766 <first : # of levels = 5
+40974 <first : # of moves evaluated: 772786
+40974 <first : # outcome: simple-move
+40981 <first : # game board after move:
+40981 <first : #
+40981 <first : # 8  BR BN BB BQ BK BB BN BR
+40981 <first : # 7  .  BP BP .  BP .  BP BP
+40981 <first : # 6  .  .  .  BP .  BP .  . 
+40981 <first : # 5  .  .  .  .  .  .  WN . 
+40981 <first : # 4  BP .  WB .  .  .  .  . 
+40981 <first : # 3  .  .  .  .  WP WQ .  . 
+40981 <first : # 2  WP WP WP WP .  WP WP WP
+40981 <first : # 1  WR WN WB .  WK .  .  WR
+40981 <first : 
+40981 <first : #    a  b  c  d  e  f  g  h
+40981 <first : 
+40981 <first : 
+40981 <first : move d7d6
+46276 >first : time 29561
+46277 >first : otim 26878
+book hit = (NULL)
+46277 >first : usermove 46277 >first : b2b3
+46982 <first : # BBB usermove b2b3
+46982 <first : # of levels = 5
+47360 <first : # of moves evaluated: 1400434
+47360 <first : # outcome: capture
+47373 <first : # game board after move:
+47373 <first : #
+47373 <first : # 8  BR BN BB BQ BK BB BN BR
+47373 <first : # 7  .  BP BP .  BP .  BP BP
+47373 <first : # 6  .  .  .  BP .  BP .  . 
+47373 <first : # 5  .  .  .  .  .  .  WN . 
+47373 <first : # 4  .  .  WB .  .  .  .  . 
+47373 <first : # 3  .  BP .  .  WP WQ .  . 
+47373 <first : # 2  WP .  WP WP .  WP WP WP
+47373 <first : # 1  WR WN WB .  WK .  .  WR
+47373 <first : 
+47373 <first : #    a  b  c  d  e  f  g  h
+47373 <first : 
+47373 <first : 
+47373 <first : move a4b3
+51662 >first : time 29452
+51662 >first : otim 26450
+book hit = (NULL)
+51664 >first : usermove 51664 >first : c2b3
+52373 <first : # BBB usermove c2b3
+52373 <first : # of levels = 5
+52738 <first : # of moves evaluated: 1396665
+52738 <first : # outcome: capture
+52751 <first : # game board after move:
+52751 <first : #
+52751 <first : # 8  BR BN BB BQ BK BB BN BR
+52751 <first : # 7  .  BP BP .  BP .  BP BP
+52751 <first : # 6  .  .  .  BP .  .  .  . 
+52751 <first : # 5  .  .  .  .  .  .  BP . 
+52752 <first : # 4  .  .  WB .  .  .  .  . 
+52752 <first : # 3  .  WP .  .  WP WQ .  . 
+52752 <first : # 2  WP .  .  WP .  WP WP WP
+52752 <first : # 1  WR WN WB .  WK .  .  WR
+52752 <first : 
+52752 <first : #    a  b  c  d  e  f  g  h
+52752 <first : 
+52752 <first : 
+52752 <first : move f6g5
+63982 >first : time 29343
+63982 >first : otim 25327
+book hit = (NULL)
+63982 >first : usermove 63982 >first : f3f7
+64753 <first : # BBB usermove f3f7
+64753 <first : # of levels = 5
+64770 <first : # of moves evaluated: 31213
+64770 <first : # outcome: simple-move
+64775 <first : # game board after move:
+64775 <first : #
+64775 <first : # 8  BR BN BB BQ .  BB BN BR
+64775 <first : # 7  .  BP BP BK BP WQ BP BP
+64775 <first : # 6  .  .  .  BP .  .  .  . 
+64775 <first : # 5  .  .  .  .  .  .  BP . 
+64775 <first : # 4  .  .  WB .  .  .  .  . 
+64775 <first : # 3  .  WP .  .  WP .  .  . 
+64775 <first : # 2  WP .  .  WP .  WP WP WP
+64775 <first : # 1  WR WN WB .  WK .  .  WR
+64775 <first : 
+64775 <first : #    a  b  c  d  e  f  g  h
+64775 <first : 
+64775 <first : 
+64775 <first : move e8d7
+77657 >first : time 29263
+77657 >first : otim 24038
+book hit = (NULL)
+77658 >first : usermove 77658 >first : h2h4
+77776 <first : # BBB usermove h2h4
+77776 <first : # of levels = 5
+77974 <first : # of moves evaluated: 716671
+77974 <first : # outcome: capture
+77981 <first : # game board after move:
+77981 <first : #
+77981 <first : # 8  BR BN BB BQ .  BB BN BR
+77981 <first : # 7  .  BP BP BK BP WQ BP BP
+77981 <first : # 6  .  .  .  BP .  .  .  . 
+77981 <first : # 5  .  .  .  .  .  .  .  . 
+77981 <first : # 4  .  .  WB .  .  .  .  BP
+77981 <first : # 3  .  WP .  .  WP .  .  . 
+77981 <first : # 2  WP .  .  WP .  WP WP . 
+77981 <first : # 1  WR WN WB .  WK .  .  WR
+77981 <first : 
+77981 <first : #    a  b  c  d  e  f  g  h
+77981 <first : 
+77981 <first : 
+77981 <first : move g5h4
+79646 >first : time 29231
+79647 >first : otim 23872
+book hit = (NULL)
+79647 >first : usermove 79647 >first : h1h4
+79982 <first : # BBB usermove h1h4
+79982 <first : # of levels = 5
+80173 <first : # of moves evaluated: 740898
+80173 <first : # outcome: simple-move
+80180 <first : # game board after move:
+80180 <first : #
+80180 <first : # 8  BR BN BB .  BQ BB BN BR
+80180 <first : # 7  .  BP BP BK BP WQ BP BP
+80180 <first : # 6  .  .  .  BP .  .  .  . 
+80180 <first : # 5  .  .  .  .  .  .  .  . 
+80180 <first : # 4  .  .  WB .  .  .  .  WR
+80180 <first : # 3  .  WP .  .  WP .  .  . 
+80180 <first : # 2  WP .  .  WP .  WP WP . 
+80180 <first : # 1  WR WN WB .  WK .  .  . 
+80180 <first : 
+80180 <first : #    a  b  c  d  e  f  g  h
+80180 <first : 
+80180 <first : 
+80180 <first : move d8e8
+93856 >first : time 29177
+93856 >first : otim 22504
+book hit = (NULL)
+93856 >first : usermove 93856 >first : f7f5
+94182 <first : # BBB usermove f7f5
+94182 <first : # of levels = 5
+94239 <first : # of moves evaluated: 193813
+94239 <first : # outcome: simple-move
+94243 <first : # game board after move:
+94243 <first : #
+94243 <first : # 8  BR BN BB BK BQ BB BN BR
+94243 <first : # 7  .  BP BP .  BP .  BP BP
+94243 <first : # 6  .  .  .  BP .  .  .  . 
+94243 <first : # 5  .  .  .  .  .  WQ .  . 
+94243 <first : # 4  .  .  WB .  .  .  .  WR
+94243 <first : # 3  .  WP .  .  WP .  .  . 
+94243 <first : # 2  WP .  .  WP .  WP WP . 
+94243 <first : # 1  WR WN WB .  WK .  .  . 
+94243 <first : 
+94243 <first : #    a  b  c  d  e  f  g  h
+94243 <first : 
+94243 <first : 
+94243 <first : move d7d8
+107921 >first : time 29139
+107922 >first : otim 21136
+book hit = (NULL)
+107922 >first : usermove 107922 >first : a2a4
+108245 <first : # BBB usermove a2a4
+108245 <first : # of levels = 5
+108782 <first : # of moves evaluated: 1998280
+108782 <first : # outcome: simple-move
+108801 <first : # game board after move:
+108801 <first : #
+108801 <first : # 8  BR BN BB BK .  BB BN BR
+108801 <first : # 7  .  BP BP .  BP .  BP BP
+108801 <first : # 6  .  .  .  BP .  .  .  . 
+108801 <first : # 5  .  .  .  .  .  WQ .  BQ
+108801 <first : # 4  WP .  WB .  .  .  .  WR
+108801 <first : # 3  .  WP .  .  WP .  .  . 
+108801 <first : # 2  .  .  .  WP .  WP WP . 
+108801 <first : # 1  WR WN WB .  WK .  .  . 
+108801 <first : 
+108801 <first : #    a  b  c  d  e  f  g  h
+108801 <first : 
+108801 <first : 
+108801 <first : move e8h5
+112459 >first : time 29051
+112459 >first : otim 20771
+book hit = (NULL)
+112460 >first : usermove 112460 >first : f5h5
+112802 <first : # BBB usermove f5h5
+112802 <first : # of levels = 5
+113078 <first : # of moves evaluated: 1197187
+113078 <first : # outcome: simple-move
+113092 <first : # game board after move:
+113092 <first : #
+113092 <first : # 8  BR BN BB BK .  BB BN BR
+113092 <first : # 7  .  BP BP .  .  .  BP BP
+113092 <first : # 6  .  .  .  BP .  .  .  . 
+113092 <first : # 5  .  .  .  .  BP .  .  WQ
+113092 <first : # 4  WP .  WB .  .  .  .  WR
+113092 <first : # 3  .  WP .  .  WP .  .  . 
+113092 <first : # 2  .  .  .  WP .  WP WP . 
+113092 <first : # 1  WR WN WB .  WK .  .  . 
+113092 <first : 
+113092 <first : #    a  b  c  d  e  f  g  h
+113092 <first : 
+113092 <first : 
+113092 <first : move e7e5
+126783 >first : time 28987
+126783 >first : otim 19402
+book hit = (NULL)
+126783 >first : usermove 126783 >first : c1b2
+127093 <first : # BBB usermove c1b2
+127093 <first : # of levels = 5
+127419 <first : # of moves evaluated: 1398642
+127419 <first : # outcome: capture
+127432 <first : # game board after move:
+127432 <first : #
+127432 <first : # 8  .  BN BB BK .  BB BN BR
+127432 <first : # 7  .  BP BP .  .  .  BP BP
+127432 <first : # 6  .  .  .  BP .  .  .  . 
+127432 <first : # 5  .  .  .  .  BP .  .  WQ
+127432 <first : # 4  BR .  WB .  .  .  .  WR
+127432 <first : # 3  .  WP .  .  WP .  .  . 
+127432 <first : # 2  .  WB .  WP .  WP WP . 
+127432 <first : # 1  WR WN .  .  WK .  .  . 
+127432 <first : 
+127432 <first : #    a  b  c  d  e  f  g  h
+127432 <first : 
+127432 <first : 
+127432 <first : move a8a4
+130087 >first : time 28923
+130087 >first : otim 19136
+book hit = (NULL)
+130087 >first : usermove 130087 >first : b3a4
+130433 <first : # BBB usermove b3a4
+130433 <first : # of levels = 5
+130665 <first : # of moves evaluated: 1066133
+130665 <first : # outcome: simple-move
+130675 <first : # game board after move:
+130676 <first : #
+130676 <first : # 8  .  BN BB BK .  BB BN BR
+130676 <first : # 7  .  BP BP .  .  .  BP BP
+130676 <first : # 6  .  .  .  .  .  .  .  . 
+130676 <first : # 5  .  .  .  BP BP .  .  WQ
+130676 <first : # 4  WP .  WB .  .  .  .  WR
+130676 <first : # 3  .  .  .  .  WP .  .  . 
+130676 <first : # 2  .  WB .  WP .  WP WP . 
+130676 <first : # 1  WR WN .  .  WK .  .  . 
+130676 <first : 
+130676 <first : #    a  b  c  d  e  f  g  h
+130676 <first : 
+130676 <first : 
+130676 <first : move d6d5
+132768 >first : time 28864
+132768 >first : otim 18927
+book hit = (NULL)
+132768 >first : usermove 132768 >first : c4d5
+133676 <first : # BBB usermove c4d5
+133676 <first : # of levels = 5
+133980 <first : # of moves evaluated: 1362634
+133980 <first : # outcome: simple-move
+133993 <first : # game board after move:
+133993 <first : #
+133993 <first : # 8  .  BN BB BK .  BB BN BR
+133993 <first : # 7  .  BP BP .  .  .  BP BP
+133993 <first : # 6  .  .  .  .  .  .  .  . 
+133993 <first : # 5  .  .  .  WB .  .  .  WQ
+133993 <first : # 4  WP .  .  .  BP .  .  WR
+133993 <first : # 3  .  .  .  .  WP .  .  . 
+133993 <first : # 2  .  WB .  WP .  WP WP . 
+133993 <first : # 1  WR WN .  .  WK .  .  . 
+133993 <first : 
+133993 <first : #    a  b  c  d  e  f  g  h
+133993 <first : 
+133993 <first : 
+133993 <first : move e5e4
+139684 >first : time 28741
+139685 >first : otim 18358
+book hit = (NULL)
+139685 >first : usermove 139685 >first : h4e4
+139994 <first : # BBB usermove h4e4
+139994 <first : # of levels = 5
+140264 <first : # of moves evaluated: 1174661
+140264 <first : # outcome: simple-move
+140275 <first : # game board after move:
+140275 <first : #
+140275 <first : # 8  .  BN BB BK .  BB BN BR
+140275 <first : # 7  .  BP .  .  .  .  BP BP
+140275 <first : # 6  .  .  BP .  .  .  .  . 
+140275 <first : # 5  .  .  .  WB .  .  .  WQ
+140276 <first : # 4  WP .  .  .  WR .  .  . 
+140276 <first : # 3  .  .  .  .  WP .  .  . 
+140276 <first : # 2  .  WB .  WP .  WP WP . 
+140276 <first : # 1  WR WN .  .  WK .  .  . 
+140276 <first : 
+140276 <first : #    a  b  c  d  e  f  g  h
+140276 <first : 
+140276 <first : 
+140276 <first : move c7c6
+160441 >first : time 28682
+160442 >first : otim 16341
+book hit = (NULL)
+160442 >first : usermove 160442 >first : d5c6
+161278 <first : # BBB usermove d5c6
+161278 <first : # of levels = 5
+161503 <first : # of moves evaluated: 1031707
+161503 <first : # outcome: simple-move
+161513 <first : # game board after move:
+161513 <first : #
+161513 <first : # 8  .  BN BB .  .  BB BN BR
+161513 <first : # 7  .  BP BK .  .  .  BP BP
+161513 <first : # 6  .  .  WB .  .  .  .  . 
+161513 <first : # 5  .  .  .  .  .  .  .  WQ
+161513 <first : # 4  WP .  .  .  WR .  .  . 
+161513 <first : # 3  .  .  .  .  WP .  .  . 
+161513 <first : # 2  .  WB .  WP .  WP WP . 
+161513 <first : # 1  WR WN .  .  WK .  .  . 
+161513 <first : 
+161513 <first : #    a  b  c  d  e  f  g  h
+161513 <first : 
+161513 <first : 
+161513 <first : move d8c7
+169091 >first : time 28575
+169091 >first : otim 15584
+book hit = (NULL)
+169091 >first : usermove 169091 >first : c6b7
+169514 <first : # BBB usermove c6b7
+169514 <first : # of levels = 5
+169759 <first : # of moves evaluated: 1125972
+169759 <first : # outcome: capture
+169770 <first : # game board after move:
+169770 <first : #
+169770 <first : # 8  .  BN BB .  .  BB BN BR
+169770 <first : # 7  .  BK .  .  .  .  BP BP
+169770 <first : # 6  .  .  .  .  .  .  .  . 
+169770 <first : # 5  .  .  .  .  .  .  .  WQ
+169770 <first : # 4  WP .  .  .  WR .  .  . 
+169770 <first : # 3  .  .  .  .  WP .  .  . 
+169770 <first : # 2  .  WB .  WP .  WP WP . 
+169770 <first : # 1  WR WN .  .  WK .  .  . 
+169770 <first : 
+169770 <first : #    a  b  c  d  e  f  g  h
+169770 <first : 
+169770 <first : 
+169770 <first : move c7b7
+175208 >first : time 28507
+175208 >first : otim 15040
+book hit = (NULL)
+175208 >first : usermove 175208 >first : e4b4
+175771 <first : # BBB usermove e4b4
+175771 <first : # of levels = 5
+175816 <first : # of moves evaluated: 176797
+175816 <first : # outcome: capture
+175821 <first : # game board after move:
+175821 <first : #
+175821 <first : # 8  .  BN BB .  .  .  BN BR
+175821 <first : # 7  .  BK .  .  .  .  BP BP
+175821 <first : # 6  .  .  .  .  .  .  .  . 
+175821 <first : # 5  .  .  .  .  .  .  .  WQ
+175821 <first : # 4  WP BB .  .  .  .  .  . 
+175821 <first : # 3  .  .  .  .  WP .  .  . 
+175821 <first : # 2  .  WB .  WP .  WP WP . 
+175821 <first : # 1  WR WN .  .  WK .  .  . 
+175821 <first : 
+175821 <first : #    a  b  c  d  e  f  g  h
+175821 <first : 
+175821 <first : 
+175821 <first : move f8b4
+181820 >first : time 28445
+181820 >first : otim 14440
+book hit = (NULL)
+181820 >first : usermove 181820 >first : h5b5
+181824 <first : # BBB usermove h5b5
+181824 <first : # of levels = 5
+181841 <first : # of moves evaluated: 51692
+181841 <first : # outcome: simple-move
+181842 <first : # game board after move:
+181842 <first : #
+181842 <first : # 8  .  BN BB .  .  .  BN BR
+181842 <first : # 7  .  .  BK .  .  .  BP BP
+181842 <first : # 6  .  .  .  .  .  .  .  . 
+181842 <first : # 5  .  WQ .  .  .  .  .  . 
+181842 <first : # 4  WP BB .  .  .  .  .  . 
+181842 <first : # 3  .  .  .  .  WP .  .  . 
+181842 <first : # 2  .  WB .  WP .  WP WP . 
+181842 <first : # 1  WR WN .  .  WK .  .  . 
+181842 <first : 
+181842 <first : #    a  b  c  d  e  f  g  h
+181842 <first : 
+181842 <first : 
+181842 <first : move b7c7
+183237 >first : time 28443
+183237 >first : otim 14300
+book hit = (NULL)
+183237 >first : usermove 183237 >first : b5b4
+183842 <first : # BBB usermove b5b4
+183842 <first : # of levels = 5
+183930 <first : # of moves evaluated: 389148
+183930 <first : # outcome: simple-move
+183934 <first : # game board after move:
+183934 <first : #
+183934 <first : # 8  .  BN BB BK .  .  BN BR
+183934 <first : # 7  .  .  .  .  .  .  BP BP
+183934 <first : # 6  .  .  .  .  .  .  .  . 
+183934 <first : # 5  .  .  .  .  .  .  .  . 
+183934 <first : # 4  WP WQ .  .  .  .  .  . 
+183934 <first : # 3  .  .  .  .  WP .  .  . 
+183934 <first : # 2  .  WB .  WP .  WP WP . 
+183934 <first : # 1  WR WN .  .  WK .  .  . 
+183934 <first : 
+183934 <first : #    a  b  c  d  e  f  g  h
+183934 <first : 
+183934 <first : 
+183934 <first : move c7d8
+186223 >first : time 28373
+186223 >first : otim 14072
+book hit = (NULL)
+186223 >first : usermove 186223 >first : b4b8
+186934 <first : # BBB usermove b4b8
+186934 <first : # of levels = 5
+186962 <first : # of moves evaluated: 143052
+186962 <first : # outcome: simple-move
+186964 <first : # game board after move:
+186964 <first : #
+186964 <first : # 8  .  WQ BB BK .  .  .  BR
+186964 <first : # 7  .  .  .  .  BN .  BP BP
+186964 <first : # 6  .  .  .  .  .  .  .  . 
+186964 <first : # 5  .  .  .  .  .  .  .  . 
+186964 <first : # 4  WP .  .  .  .  .  .  . 
+186964 <first : # 3  .  .  .  .  WP .  .  . 
+186964 <first : # 2  .  WB .  WP .  WP WP . 
+186964 <first : # 1  WR WN .  .  WK .  .  . 
+186964 <first : 
+186964 <first : #    a  b  c  d  e  f  g  h
+186964 <first : 
+186964 <first : 
+186964 <first : move g8e7
+193569 >first : time 28299
+193569 >first : otim 13411
+book hit = (NULL)
+193570 >first : usermove 193570 >first : b8b6
+193965 <first : # BBB usermove b8b6
+193965 <first : # of levels = 5
+193983 <first : # of moves evaluated: 41950
+193983 <first : # outcome: simple-move
+193983 <first : # game board after move:
+193983 <first : #
+193983 <first : # 8  .  .  BB .  .  .  .  BR
+193983 <first : # 7  .  .  .  BK BN .  BP BP
+193983 <first : # 6  .  WQ .  .  .  .  .  . 
+193983 <first : # 5  .  .  .  .  .  .  .  . 
+193983 <first : # 4  WP .  .  .  .  .  .  . 
+193983 <first : # 3  .  .  .  .  WP .  .  . 
+193983 <first : # 2  .  WB .  WP .  WP WP . 
+193983 <first : # 1  WR WN .  .  WK .  .  . 
+193983 <first : 
+193983 <first : #    a  b  c  d  e  f  g  h
+193983 <first : 
+193983 <first : 
+193983 <first : move d8d7
+205741 >first : time 28258
+205741 >first : otim 12235
+book hit = (NULL)
+205741 >first : usermove 205741 >first : b2a3
+205985 <first : # BBB usermove b2a3
+205985 <first : # of levels = 5
+206048 <first : # of moves evaluated: 282651
+206048 <first : # outcome: simple-move
+206051 <first : # game board after move:
+206051 <first : #
+206051 <first : # 8  .  .  BB .  .  .  .  BR
+206051 <first : # 7  .  .  .  BK .  .  BP BP
+206051 <first : # 6  .  WQ .  .  .  .  .  . 
+206051 <first : # 5  .  .  .  .  .  BN .  . 
+206051 <first : # 4  WP .  .  .  .  .  .  . 
+206051 <first : # 3  WB .  .  .  WP .  .  . 
+206051 <first : # 2  .  .  .  WP .  WP WP . 
+206051 <first : # 1  WR WN .  .  WK .  .  . 
+206051 <first : 
+206051 <first : #    a  b  c  d  e  f  g  h
+206051 <first : 
+206051 <first : 
+206051 <first : move e7f5
+213110 >first : time 28227
+213110 >first : otim 11529
+book hit = (NULL)
+213110 >first : usermove 213110 >first : b6b5
+214052 <first : # BBB usermove b6b5
+214052 <first : # of levels = 5
+214069 <first : # of moves evaluated: 58532
+214069 <first : # outcome: simple-move
+214070 <first : # game board after move:
+214070 <first : #
+214070 <first : # 8  .  .  BB BK .  .  .  BR
+214070 <first : # 7  .  .  .  .  .  .  BP BP
+214070 <first : # 6  .  .  .  .  .  .  .  . 
+214070 <first : # 5  .  WQ .  .  .  BN .  . 
+214070 <first : # 4  WP .  .  .  .  .  .  . 
+214070 <first : # 3  WB .  .  .  WP .  .  . 
+214070 <first : # 2  .  .  .  WP .  WP WP . 
+214070 <first : # 1  WR WN .  .  WK .  .  . 
+214070 <first : 
+214070 <first : #    a  b  c  d  e  f  g  h
+214070 <first : 
+214070 <first : 
+214070 <first : move d7d8
+220115 >first : time 28131
+220115 >first : otim 10925
+book hit = (NULL)
+220115 >first : usermove 220115 >first : b5d5
+221071 <first : # BBB usermove b5d5
+221071 <first : # of levels = 5
+221095 <first : # of moves evaluated: 88216
+221095 <first : # outcome: simple-move
+221096 <first : # game board after move:
+221096 <first : #
+221096 <first : # 8  .  .  .  BK .  .  .  BR
+221096 <first : # 7  .  .  .  BB .  .  BP BP
+221096 <first : # 6  .  .  .  .  .  .  .  . 
+221096 <first : # 5  .  .  .  WQ .  BN .  . 
+221096 <first : # 4  WP .  .  .  .  .  .  . 
+221096 <first : # 3  WB .  .  .  WP .  .  . 
+221096 <first : # 2  .  .  .  WP .  WP WP . 
+221096 <first : # 1  WR WN .  .  WK .  .  . 
+221096 <first : 
+221096 <first : #    a  b  c  d  e  f  g  h
+221096 <first : 
+221096 <first : 
+221096 <first : move c8d7
+227230 >first : time 28033
+227230 >first : otim 10312
+book hit = (NULL)
+227230 >first : usermove 227230 >first : b1c3
+228097 <first : # BBB usermove b1c3
+228097 <first : # of levels = 5
+228220 <first : # of moves evaluated: 617377
+228220 <first : # outcome: simple-move
+228226 <first : # game board after move:
+228226 <first : #
+228226 <first : # 8  .  .  .  BK BR .  .  . 
+228226 <first : # 7  .  .  .  BB .  .  BP BP
+228226 <first : # 6  .  .  .  .  .  .  .  . 
+228226 <first : # 5  .  .  .  WQ .  BN .  . 
+228226 <first : # 4  WP .  .  .  .  .  .  . 
+228226 <first : # 3  WB .  WN .  WP .  .  . 
+228226 <first : # 2  .  .  .  WP .  WP WP . 
+228226 <first : # 1  WR .  .  .  WK .  .  . 
+228226 <first : 
+228226 <first : #    a  b  c  d  e  f  g  h
+228226 <first : 
+228226 <first : 
+228226 <first : move h8e8
+232948 >first : time 27933
+232948 >first : otim 9839
+book hit = (NULL)
+232950 >first : usermove 232950 >first : a1b1
+233226 <first : # BBB usermove a1b1
+233226 <first : # of levels = 5
+233369 <first : # of moves evaluated: 709557
+233369 <first : # outcome: capture
+233376 <first : # game board after move:
+233376 <first : #
+233376 <first : # 8  .  .  .  BK BR .  .  . 
+233376 <first : # 7  .  .  .  BB .  .  BP BP
+233376 <first : # 6  .  .  .  .  .  .  .  . 
+233376 <first : # 5  .  .  .  WQ .  .  .  . 
+233376 <first : # 4  WP .  .  .  .  .  .  . 
+233376 <first : # 3  WB .  WN .  BN .  .  . 
+233376 <first : # 2  .  .  .  WP .  WP WP . 
+233376 <first : # 1  .  WR .  .  WK .  .  . 
+233377 <first : 
+233377 <first : #    a  b  c  d  e  f  g  h
+233377 <first : 
+233377 <first : 
+233377 <first : move f5e3
+235699 >first : time 27890
+235699 >first : otim 9607
+book hit = (NULL)
+235699 >first : usermove 235699 >first : f2e3
+236377 <first : # BBB usermove f2e3
+236377 <first : # of levels = 5
+236449 <first : # of moves evaluated: 357295
+236449 <first : # outcome: simple-move
+236453 <first : # game board after move:
+236453 <first : #
+236453 <first : # 8  .  .  .  BK BR .  .  . 
+236454 <first : # 7  .  .  .  BB .  .  .  BP
+236454 <first : # 6  .  .  .  .  .  .  BP . 
+236454 <first : # 5  .  .  .  WQ .  .  .  . 
+236454 <first : # 4  WP .  .  .  .  .  .  . 
+236454 <first : # 3  WB .  WN .  WP .  .  . 
+236454 <first : # 2  .  .  .  WP .  .  WP . 
+236454 <first : # 1  .  WR .  .  WK .  .  . 
+236454 <first : 
+236454 <first : #    a  b  c  d  e  f  g  h
+236454 <first : 
+236454 <first : 
+236454 <first : move g7g6
+241416 >first : time 27815
+241416 >first : otim 9111
+book hit = (NULL)
+241416 >first : usermove 241416 >first : b1b8
+241454 <first : # BBB usermove b1b8
+241454 <first : # of levels = 5
+241470 <first : # of moves evaluated: 46471
+241470 <first : # outcome: simple-move
+241471 <first : # game board after move:
+241471 <first : #
+241471 <first : # 8  .  WR .  .  BR .  .  . 
+241471 <first : # 7  .  .  BK BB .  .  .  BP
+241471 <first : # 6  .  .  .  .  .  .  BP . 
+241471 <first : # 5  .  .  .  WQ .  .  .  . 
+241471 <first : # 4  WP .  .  .  .  .  .  . 
+241471 <first : # 3  WB .  WN .  WP .  .  . 
+241471 <first : # 2  .  .  .  WP .  .  WP . 
+241471 <first : # 1  .  .  .  .  WK .  .  . 
+241471 <first : 
+241471 <first : #    a  b  c  d  e  f  g  h
+241471 <first : 
+241471 <first : 
+241471 <first : move d8c7
+253935 >first : time 27809
+253935 >first : otim 7865
+book hit = (NULL)
+253935 >first : usermove 253935 >first : c3b5
+254472 <first : # BBB usermove c3b5
+254472 <first : # of levels = 5
+254485 <first : # of moves evaluated: 28612
+254485 <first : # outcome: capture
+254485 <first : # game board after move:
+254485 <first : #
+254485 <first : # 8  .  WR .  .  BR .  .  . 
+254485 <first : # 7  .  .  BK .  .  .  .  BP
+254485 <first : # 6  .  .  .  .  .  .  BP . 
+254485 <first : # 5  .  BB .  WQ .  .  .  . 
+254485 <first : # 4  WP .  .  .  .  .  .  . 
+254485 <first : # 3  WB .  .  .  WP .  .  . 
+254485 <first : # 2  .  .  .  WP .  .  WP . 
+254485 <first : # 1  .  .  .  .  WK .  .  . 
+254485 <first : 
+254485 <first : #    a  b  c  d  e  f  g  h
+254485 <first : 
+254485 <first : 
+254485 <first : move d7b5
+256240 >first : time 27754
+256241 >first : otim 7689
+book hit = (NULL)
+256241 >first : usermove 256241 >first : a4b5
+256485 <first : # BBB usermove a4b5
+256485 <first : # of levels = 5
+256522 <first : # of moves evaluated: 185923
+256522 <first : # outcome: capture
+256524 <first : # game board after move:
+256524 <first : #
+256524 <first : # 8  .  BR .  .  .  .  .  . 
+256524 <first : # 7  .  .  BK .  .  .  .  BP
+256524 <first : # 6  .  .  .  .  .  .  BP . 
+256524 <first : # 5  .  WP .  WQ .  .  .  . 
+256524 <first : # 4  .  .  .  .  .  .  .  . 
+256524 <first : # 3  WB .  .  .  WP .  .  . 
+256524 <first : # 2  .  .  .  WP .  .  WP . 
+256524 <first : # 1  .  .  .  .  WK .  .  . 
+256524 <first : 
+256524 <first : #    a  b  c  d  e  f  g  h
+256524 <first : 
+256524 <first : 
+256524 <first : move e8b8
+261381 >first : time 27726
+261381 >first : otim 7203
+book hit = (NULL)
+261381 >first : usermove 261381 >first : d5c5
+261525 <first : # BBB usermove d5c5
+261525 <first : # of levels = 5
+261536 <first : # of moves evaluated: 27783
+261536 <first : # outcome: simple-move
+261536 <first : # game board after move:
+261536 <first : #
+261536 <first : # 8  .  BR .  .  .  .  .  . 
+261536 <first : # 7  .  BK .  .  .  .  .  BP
+261536 <first : # 6  .  .  .  .  .  .  BP . 
+261536 <first : # 5  .  WP WQ .  .  .  .  . 
+261536 <first : # 4  .  .  .  .  .  .  .  . 
+261536 <first : # 3  WB .  .  .  WP .  .  . 
+261536 <first : # 2  .  .  .  WP .  .  WP . 
+261536 <first : # 1  .  .  .  .  WK .  .  . 
+261536 <first : 
+261536 <first : #    a  b  c  d  e  f  g  h
+261536 <first : 
+261536 <first : 
+261536 <first : move c7b7
+263850 >first : time 27710
+263850 >first : otim 6972
+book hit = (NULL)
+263850 >first : usermove 263850 >first : c5c6
+264537 <first : # BBB usermove c5c6
+264537 <first : # of levels = 5
+264543 <first : # of moves evaluated: 13136
+264543 <first : # outcome: simple-move
+264544 <first : # game board after move:
+264544 <first : #
+264544 <first : # 8  .  BR .  .  .  .  .  . 
+264544 <first : # 7  BK .  .  .  .  .  .  BP
+264544 <first : # 6  .  .  WQ .  .  .  BP . 
+264544 <first : # 5  .  WP .  .  .  .  .  . 
+264544 <first : # 4  .  .  .  .  .  .  .  . 
+264544 <first : # 3  WB .  .  .  WP .  .  . 
+264544 <first : # 2  .  .  .  WP .  .  WP . 
+264544 <first : # 1  .  .  .  .  WK .  .  . 
+264544 <first : 
+264544 <first : #    a  b  c  d  e  f  g  h
+264544 <first : 
+264544 <first : 
+264544 <first : move b7a7
+268308 >first : time 27641
+268308 >first : otim 6596
+book hit = (NULL)
+268308 >first : usermove 268308 >first : c6c7
+268544 <first : # BBB usermove c6c7
+268544 <first : # of levels = 5
+268557 <first : # of moves evaluated: 23269
+268557 <first : # outcome: simple-move
+268557 <first : # game board after move:
+268557 <first : #
+268557 <first : # 8  BK BR .  .  .  .  .  . 
+268557 <first : # 7  .  .  WQ .  .  .  .  BP
+268557 <first : # 6  .  .  .  .  .  .  BP . 
+268557 <first : # 5  .  WP .  .  .  .  .  . 
+268557 <first : # 4  .  .  .  .  .  .  .  . 
+268557 <first : # 3  WB .  .  .  WP .  .  . 
+268558 <first : # 2  .  .  .  WP .  .  WP . 
+268558 <first : # 1  .  .  .  .  WK .  .  . 
+268558 <first : 
+268558 <first : #    a  b  c  d  e  f  g  h
+268558 <first : 
+268558 <first : 
+268558 <first : move a7a8
+272231 >first : time 27616
+272231 >first : otim 6228
+book hit = (NULL)
+272231 >first : usermove 272231 >first : b5b6
+272558 <first : # BBB usermove b5b6
+272558 <first : # of levels = 5
+272587 <first : # of moves evaluated: 135398
+272587 <first : # outcome: capture
+272588 <first : # game board after move:
+272588 <first : #
+272588 <first : # 8  BK .  .  .  .  .  .  . 
+272588 <first : # 7  .  .  WQ .  .  .  .  BP
+272588 <first : # 6  .  BR .  .  .  .  BP . 
+272588 <first : # 5  .  .  .  .  .  .  .  . 
+272588 <first : # 4  .  .  .  .  .  .  .  . 
+272588 <first : # 3  WB .  .  .  WP .  .  . 
+272588 <first : # 2  .  .  .  WP .  .  WP . 
+272588 <first : # 1  .  .  .  .  WK .  .  . 
+272588 <first : 
+272588 <first : #    a  b  c  d  e  f  g  h
+272588 <first : 
+272588 <first : 
+272588 <first : move b8b6
+275054 >first : time 27580
+275054 >first : otim 5982
+book hit = (NULL)
+275054 >first : usermove 275054 >first : c7b6
+275588 <first : # BBB usermove c7b6
+275589 <first : # of levels = 5
+275594 <first : # of moves evaluated: 9501
+275594 <first : # outcome: simple-move
+275595 <first : # game board after move:
+275595 <first : #
+275595 <first : # 8  BK .  .  .  .  .  .  . 
+275595 <first : # 7  .  .  .  .  .  .  .  BP
+275595 <first : # 6  .  WQ .  .  .  .  .  . 
+275595 <first : # 5  .  .  .  .  .  .  BP . 
+275595 <first : # 4  .  .  .  .  .  .  .  . 
+275595 <first : # 3  WB .  .  .  WP .  .  . 
+275595 <first : # 2  .  .  .  WP .  .  WP . 
+275595 <first : # 1  .  .  .  .  WK .  .  . 
+275595 <first : 
+275595 <first : #    a  b  c  d  e  f  g  h
+275595 <first : 
+275595 <first : 
+275595 <first : move g6g5
+285576 >first : time 27526
+285576 >first : otim 4984
+book hit = (NULL)
+285576 >first : usermove 285576 >first : a3c5
+285596 <first : # BBB usermove a3c5
+285596 <first : # of levels = 5
+285597 <first : # of moves evaluated: 7962
+285597 <first : # outcome: simple-move
+285597 <first : # game board after move:
+285597 <first : #
+285597 <first : # 8  BK .  .  .  .  .  .  . 
+285597 <first : # 7  .  .  .  .  .  .  .  BP
+285597 <first : # 6  .  WQ .  .  .  .  .  . 
+285597 <first : # 5  .  .  WB .  .  .  .  . 
+285597 <first : # 4  .  .  .  .  .  .  BP . 
+285597 <first : # 3  .  .  .  .  WP .  .  . 
+285597 <first : # 2  .  .  .  WP .  .  WP . 
+285597 <first : # 1  .  .  .  .  WK .  .  . 
+285597 <first : 
+285597 <first : #    a  b  c  d  e  f  g  h
+285597 <first : 
+285597 <first : 
+285597 <first : move g5g4
+289476 >first : usermove 289476 >first : b6a7
+GameEnds(26, Xboard adjudication: Checkmate, 4)
+289477 >first : result 1-0 {Xboard adjudication: Checkmate}
+289477 >first : force
+289598 <first : # BBB usermove b6a7
+289598 <first : # of levels = 5
+289598 <first : # of moves evaluated: 1
+289598 <first : # outcome: ?
+289598 <first : # black resigns!
+289598 <first : # game board after move:
+289598 <first : #
+289598 <first : # 8  BK .  .  .  .  .  .  . 
+289598 <first : # 7  WQ .  .  .  .  .  .  BP
+289598 <first : # 6  .  .  .  .  .  .  .  . 
+289598 <first : # 5  .  .  WB .  .  .  .  . 
+289598 <first : # 4  .  .  .  .  .  .  BP . 
+289598 <first : # 3  .  .  .  .  WP .  .  . 
+289598 <first : # 2  .  .  .  WP .  .  WP . 
+289598 <first : # 1  .  .  .  .  WK .  .  . 
+289598 <first : 
+289598 <first : #    a  b  c  d  e  f  g  h
+289598 <first : 
+289598 <first : 
+289598 <first : move resign
+Undoing extra move from first, gameMode 8
+289599 >first : undo
+GameEnds(26, Xboard adjudication: Checkmate, 2)
+294414 >first : quit

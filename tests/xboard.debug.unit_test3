@@ -1,0 +1,152 @@
+locale = en_US.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + my_engine ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") ./my_engine
+204 >first : xboard
+protover 2
+1207 <first : feature usermove=1 debug=1 sigint=0 sigterm=0 done=1
+1207 >first : accepted usermove
+1207 >first : accepted debug
+1207 >first : accepted sigint
+1207 >first : accepted sigterm
+1207 >first : accepted done
+1208 >first : new
+random
+1208 >first : level 40 5 0
+1208 >first : post
+1208 >first : hard
+2207 <first : # BBB new
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+3122 >first : time 30000
+3123 >first : otim 30000
+book hit = (NULL)
+3123 >first : usermove 3123 >first : e2e4
+3208 <first : # BBB usermove e2e4
+3208 <first : # of levels = 6
+4212 <first : # of moves evaluated: 10304012
+4212 <first : move a7a6
+6777 >first : time 29891
+6777 >first : otim 29743
+book hit = (NULL)
+6777 >first : usermove 6777 >first : a2a4
+7212 <first : # BBB usermove a2a4
+7212 <first : # of levels = 6
+8060 <first : # of moves evaluated: 8667396
+8060 <first : move a6a5
+10802 >first : time 29762
+10802 >first : otim 29469
+book hit = (NULL)
+10802 >first : usermove 10802 >first : b2b3
+11061 <first : # BBB usermove b2b3
+11061 <first : # of levels = 6
+12027 <first : # of moves evaluated: 9884240
+12027 <first : move b7b6
+16276 >first : time 29640
+16276 >first : otim 29044
+book hit = (NULL)
+16276 >first : usermove 16276 >first : d2d3
+17028 <first : # BBB usermove d2d3
+17028 <first : # of levels = 6
+18125 <first : # of moves evaluated: 11423384
+18125 <first : move b6b5
+23306 >first : time 29455
+23306 >first : otim 28526
+book hit = (NULL)
+23306 >first : usermove 23306 >first : h2h4
+24126 <first : # BBB usermove h2h4
+24126 <first : # of levels = 6
+25351 <first : # of moves evaluated: 12742696
+25351 <first : move b5a4
+26788 >first : time 29250
+26788 >first : otim 28382
+book hit = (NULL)
+26788 >first : usermove 26788 >first : b3a4
+27351 <first : # BBB usermove b3a4
+27351 <first : # of levels = 6
+28234 <first : # of moves evaluated: 9128350
+28234 <first : move c7c6
+31380 >first : time 29106
+31380 >first : otim 28068
+book hit = (NULL)
+31380 >first : usermove 31380 >first : c2c4
+32235 <first : # BBB usermove c2c4
+32235 <first : # of levels = 6
+33227 <first : # of moves evaluated: 10244742
+33227 <first : move c6c5
+41687 >first : time 28921
+41687 >first : otim 27222
+book hit = (NULL)
+41688 >first : usermove 41688 >first : g2g4
+42228 <first : # BBB usermove g2g4
+42228 <first : # of levels = 6
+43122 <first : # of moves evaluated: 9231823
+43122 <first : move d7d6
+45045 >first : time 28778
+45045 >first : otim 27029
+book hit = (NULL)
+45045 >first : usermove 45045 >first : f2f4
+45122 <first : # BBB usermove f2f4
+45122 <first : # of levels = 6
+46309 <first : # of moves evaluated: 12533688
+46309 <first : move c8g4
+50855 >first : time 28651
+50855 >first : otim 26575
+book hit = (NULL)
+50855 >first : usermove 50855 >first : d1g4
+51310 <first : # BBB usermove d1g4
+51310 <first : # of levels = 6
+52440 <first : # of moves evaluated: 11915537
+52440 <first : move d6d5
+55975 >first : time 28493
+55975 >first : otim 26221
+book hit = (NULL)
+55975 >first : usermove 55975 >first : e4d5
+56440 <first : # BBB usermove e4d5
+56440 <first : # of levels = 6
+57810 <first : # of moves evaluated: 14386026
+57811 <first : move d8d5
+60049 >first : time 28309
+60049 >first : otim 25997
+book hit = (NULL)
+60049 >first : usermove 60049 >first : c4d5
+60811 <first : # BBB usermove c4d5
+60811 <first : # of levels = 6
+61554 <first : # of moves evaluated: 7577946
+61554 <first : move c5c4
+63908 >first : time 28159
+63908 >first : otim 25762
+book hit = (NULL)
+63908 >first : usermove 63908 >first : d3c4
+64555 <first : # BBB usermove d3c4
+64555 <first : # of levels = 6
+65280 <first : # of moves evaluated: 7452095
+65280 <first : move e7e6
+67284 >first : time 28021
+67284 >first : otim 25562
+book hit = (NULL)
+67284 >first : usermove 67284 >first : d5e6
+68281 <first : # BBB usermove d5e6
+68281 <first : # of levels = 6
+69526 <first : # of moves evaluated: 13627594
+69526 <first : move f7e6
+71346 >first : time 27797
+71346 >first : otim 25380
+book hit = (NULL)
+71346 >first : usermove 71346 >first : g4e6
+71527 <first : # BBB usermove g4e6
+71527 <first : # of levels = 6
+73116 <first : # of moves evaluated: 17012277
+73117 <first : move g7g6
+GameEnds(29, xboard exit, 2)
+104822 >first : result * {xboard exit}
+104822 >first : force
+104822 >first : quit

@@ -20,11 +20,6 @@ target_link_libraries(sea_chess sea_chess_lib)
 install(TARGETS sea_chess_lib DESTINATION ${CMAKE_SOURCE_DIR}/lib)
 install(TARGETS sea_chess DESTINATION ${CMAKE_SOURCE_DIR}/bin)
 
-add_custom_command(
-  OUTPUT ./xboard.debug
-  COMMAND "/usr/games/xboard -fcp ./sea_chess -debug"
-  )
-
 enable_testing()
 
 add_test(NAME test1

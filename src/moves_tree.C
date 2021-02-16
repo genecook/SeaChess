@@ -54,7 +54,7 @@ void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_boar
   bool in_check = GetMoves(current_node,current_board,current_color,true,true);
 
   // no moves to be made? -- then its checkmate or a draw...
-  if (current_node->possible_moves.size() == 0) {
+  if (current_node->PossibleMovesCount() == 0) {
     EvalBoard(current_node,current_board,in_check ? CHECKMATE : DRAW);
     current_node->SetOutcome(in_check ? CHECKMATE : DRAW);
     return;
@@ -65,20 +65,21 @@ void MovesTree::ChooseMoveInner(MovesTreeNode *current_node, Board &current_boar
   bool maximize_score = current_color == Color();
   int best_subtree_score = maximize_score ? -1000000 : 1000000;
   
-  for (auto pvi = current_node->possible_moves.begin(); pvi != current_node->possible_moves.end(); pvi++) {
-     Board updated_board = MakeMove(current_board,*pvi); 
-     ChooseMoveInner(*pvi,updated_board,NextColor(current_color),current_level - 1,alpha,beta);
+  for (auto i = 0; i < current_node->PossibleMovesCount(); i++) {
+     MovesTreeNode *pm = current_node->PossibleMove(i);
+     Board updated_board = MakeMove(current_board,pm); 
+     ChooseMoveInner(pm,updated_board,NextColor(current_color),current_level - 1,alpha,beta);
      // look for 'best' score --
      //   * maximize score for 'our' player - select move thaty maximizes score
      //   * minimize score for opponent - select move that minimizes impact of opponents move
      if (maximize_score) {
-       if ((*pvi)->Score() > best_subtree_score) best_subtree_score = (*pvi)->Score();
+       if (pm->Score() > best_subtree_score) best_subtree_score = pm->Score();
        if (best_subtree_score > alpha)
 	 alpha = best_subtree_score;
        if (alpha > beta)
        	 break;
      } else { 
-       if ((*pvi)->Score() < best_subtree_score) best_subtree_score = (*pvi)->Score();
+       if (pm->Score() < best_subtree_score) best_subtree_score = pm->Score();
        if (best_subtree_score < beta)
 	 beta = best_subtree_score;
        if (beta < alpha)
@@ -205,11 +206,12 @@ bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool 
   }
 
   if (sort_moves) {
-    for (auto pmi = node->possible_moves.begin(); pmi != node->possible_moves.end(); pmi++) {
-       Board updated_board = MakeMove(game_board,*pmi); 
-       EvalBoard(*pmi,updated_board); // evaluate every move to yield raw score
+    for (auto i = 0; i < node->PossibleMovesCount(); i++) {
+       MovesTreeNode *pm = node->PossibleMove(i);
+       Board updated_board = MakeMove(game_board,pm); 
+       EvalBoard(pm,updated_board); // evaluate every move to yield raw score
     }
-    std::sort(node->possible_moves.begin(), node->possible_moves.end(), movesortfunction);
+    node->Sort(movesortfunction);
     // leave move scores in tact - ASSUME move scores will be overwritten 
   }
   
@@ -296,18 +298,18 @@ bool bestmovesortfunction(MovesTreeNode *m1, MovesTreeNode *m2) {
 }
   
 void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *suggested_move) {
-  if (root_node->possible_moves.size() == 0) {
+  if (root_node->PossibleMovesCount() == 0) {
     // this is the root node. no moves can be made. will ASSUME draw or checkmate..."
     root_node->SetOutcome(RESIGN);
   }
   
   // sort from best move to worst, according to score...
   
-  std::sort( root_node->possible_moves.begin(), root_node->possible_moves.end(), bestmovesortfunction );
+  root_node->Sort( bestmovesortfunction );
 
   // assume 1st score (after sort) will be the best...
   
-  MovesTreeNode *best_move = *root_node->possible_moves.begin();
+  MovesTreeNode *best_move = root_node->PossibleMove(0);
   root_node->Set( best_move );
   
   std::cout << "BEST MOVE: " << (*best_move) << std::endl;
@@ -319,14 +321,15 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
 
   // yes. see if this move corresponds to one of the move choices...
   
-  for (auto pvm = root_node->possible_moves.begin(); pvm != root_node->possible_moves.end(); pvm++) {
+  for (auto i = 0; i < root_node->PossibleMovesCount(); i++) {
+     MovesTreeNode *pm = root_node->PossibleMove(i);
      // if the suggested move is located and its score is as least as good as the best score
      // OR the best move isn't too interesting, then use the suggested move...
-     if ( (*pvm)->Match(suggested_move) ) {
-       std::cout << "SUGGESTED MOVE SCORE: " << (*pvm)->Score() << std::endl;
-       if ( ((*pvm)->Score() == best_move->Score()) || (best_move->Outcome() == SIMPLE_MOVE) ) {
+     if ( pm->Match(suggested_move) ) {
+       std::cout << "SUGGESTED MOVE SCORE: " << pm->Score() << std::endl;
+       if ( (pm->Score() == best_move->Score()) || (best_move->Outcome() == SIMPLE_MOVE) ) {
 	 // it does. lets use the suggested move, and hope its a good one...
-         root_node->Set(*pvm);
+         root_node->Set(pm);
 	 break;
        }
      }

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include <algorithm>
 
 //#define GRAPH_SUPPORT 1
 
@@ -58,12 +59,22 @@ public:
     possible_moves.erase(possible_moves.begin(),possible_moves.end());
   };
 
+  int PossibleMovesCount() { return possible_moves.size(); };
+  MovesTreeNode *PossibleMove(int index) { return possible_moves[index]; };
+
+  void Sort( bool (*sortfunction)(MovesTreeNode *m1, MovesTreeNode *m2) ) {
+    std::sort(possible_moves.begin(), possible_moves.end(), sortfunction);
+  };
+  
 #ifdef GRAPH_SUPPORT
   int ID() { return move_id; };
   int move_id;
 #endif
+
+private:  
   std::vector<MovesTreeNode *> possible_moves;  
 };
+
 
 struct piece_counts {
     piece_counts() : kings(0), queens(0), bishops(0),knights(0),rooks(0),pawns(0) {};

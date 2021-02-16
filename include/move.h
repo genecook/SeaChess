@@ -11,10 +11,10 @@ namespace SeaChess {
 
 class Move {
 public:
-  Move() { InitMove(); };
+  Move() : pm_count(0) { InitMove(); };
 
   Move(int _start_row, int _start_column, int _end_row, int _end_column, int _color,
-       int _outcome = INVALID_INDEX, int _capture_type = INVALID_INDEX) {
+       int _outcome = INVALID_INDEX, int _capture_type = INVALID_INDEX) : pm_count(0) {
     InitMove(_start_row,_start_column,_end_row,_end_column,_color,_outcome,false,_capture_type); 
   };
 
@@ -123,6 +123,9 @@ protected:
   unsigned int  castle_block_color : 2; //    possible-moves generation; check at eval time.
 
   int_least16_t score;                  // score - ranges from INT_LEAST16_MIN to INT_LEAST16_MAX
+  int_least8_t  pm_count;               // moved here from sub-class MovesTreeNode as there is 'space' here
+                                        //   due to how bit fields are packed into 'natural' length data element
+                                        //   (32 or 64 bits usually)
 };
 
 };

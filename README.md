@@ -10,7 +10,7 @@ of C++ will do. The development platform was Ubuntu linux.
 
 Usage
 ------
-Use *make* to build engine executable, or download and untar one of the *canned* releases.
+Use *cmake* to build engine executable.
 
 To run the *engine* from xboard (assuming you have xboard installed):
 ```

@@ -37,3 +37,20 @@ add_test(NAME test4
 add_test(NAME test5
          COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test4 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess")
 
+add_test(NAME test6
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess -n 5")
+
+add_test(NAME test7
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test2 | ./sea_chess -n 5")
+
+add_test(NAME test8
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test3 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess -n 5")
+
+add_test(NAME test9
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.checkmate2 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess -n 5")
+
+add_test(NAME test10
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test4 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess -n 5")
+
+
+

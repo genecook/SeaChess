@@ -34,3 +34,6 @@ add_test(NAME test3
 add_test(NAME test4
          COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.checkmate2 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess")
 
+add_test(NAME test5
+         COMMAND sh -c "cat ${CMAKE_SOURCE_DIR}/tests/xboard.debug.unit_test4 | ${CMAKE_SOURCE_DIR}/utils/filter.xboard.debug.pl | ./sea_chess")
+

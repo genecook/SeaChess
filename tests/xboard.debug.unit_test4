@@ -1,0 +1,552 @@
+locale = en_US.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + sea_chess ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") ./sea_chess -n 5
+249 >first : xboard
+protover 2
+257 <first : #  my_engine, version: alpha
+257 <first :     # levels: 5
+257 <first : 
+257 <first : # BBB xboard
+257 <first : feature usermove=1 debug=1 sigint=0 sigterm=0 done=1
+257 >first : accepted usermove
+257 >first : accepted debug
+257 >first : accepted sigint
+257 >first : accepted sigterm
+257 >first : accepted done
+258 >first : new
+random
+258 >first : level 40 5 0
+258 >first : post
+258 >first : hard
+259 <first : # BBB new
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+5078 >first : time 30000
+5078 >first : otim 30000
+book hit = (NULL)
+5078 >first : usermove 5078 >first : e2e4
+5080 <first : # BBB usermove e2e4
+5080 <first : choose opening...
+5080 <first : setup opening move...
+5081 <first : # next opening move: 'e7e5'
+5821 <first : BEST MOVE: e7e5 color: black outcome: simple-move score: 50 capture-type: ???
+5821 <first : SUGGESTED MOVE SCORE: 50
+5821 <first : # of moves evaluated: 742592, approx memory usage in bytes: 5940736
+5821 <first : #  Outcome: simple-move
+5821 <first : move e7e5
+9167 >first : time 29925
+9167 >first : otim 29665
+book hit = (NULL)
+9167 >first : usermove 9167 >first : d2d4
+9173 <first : # BBB usermove d2d4
+9173 <first : choose opening...
+9173 <first : # next opening move: 'd7d6'
+10148 <first : BEST MOVE: e5d4 color: black outcome: capture score: 35 capture-type: pawn
+10148 <first : SUGGESTED MOVE SCORE: -30
+10148 <first : # of moves evaluated: 644046, approx memory usage in bytes: 5152368
+10148 <first : #  Outcome: capture
+10148 <first : move e5d4
+12793 >first : time 29827
+12793 >first : otim 29401
+book hit = (NULL)
+12793 >first : usermove 12793 >first : d1d4
+12797 <first : # BBB usermove d1d4
+12797 <first : choose opening...
+12797 <first : # next opening move: 'g8f6'
+14380 <first : BEST MOVE: b8c6 color: black outcome: simple-move score: 135 capture-type: ???
+14380 <first : SUGGESTED MOVE SCORE: 95
+14380 <first : # of moves evaluated: 1296182, approx memory usage in bytes: 10369456
+14380 <first : #  Outcome: simple-move
+14380 <first : move g8f6
+19808 >first : time 29668
+19809 >first : otim 28858
+book hit = (NULL)
+19809 >first : usermove 19809 >first : c1g5
+19816 <first : # BBB usermove c1g5
+19816 <first : choose opening...
+19816 <first : # next opening move: 'f8e7'
+20464 <first : BEST MOVE: b8c6 color: black outcome: simple-move score: 150 capture-type: ???
+20464 <first : SUGGESTED MOVE SCORE: 75
+20464 <first : # of moves evaluated: 218376, approx memory usage in bytes: 1747008
+20464 <first : #  Outcome: simple-move
+20464 <first : move f8e7
+22579 >first : time 29603
+22579 >first : otim 28646
+book hit = (NULL)
+22579 >first : usermove 22579 >first : g5f6
+22583 <first : # BBB usermove g5f6
+22583 <first : choose opening...
+22583 <first : # next opening move: 'e8g8'
+23125 <first : BEST MOVE: e7f6 color: black outcome: capture score: 125 capture-type: bishop
+23125 <first : SUGGESTED MOVE SCORE: -185
+23125 <first : # of moves evaluated: 336702, approx memory usage in bytes: 2693616
+23125 <first : #  Outcome: capture
+23125 <first : move e7f6
+33096 >first : time 29548
+33096 >first : otim 27649
+book hit = (NULL)
+33096 >first : usermove 33096 >first : e4e5
+33099 <first : # BBB usermove e4e5
+33099 <first : choose opening...
+33270 <first : BEST MOVE: b8c6 color: black outcome: simple-move score: 175 capture-type: ???
+33270 <first : # of moves evaluated: 70563, approx memory usage in bytes: 564504
+33270 <first : #  Outcome: simple-move
+33270 <first : move b8c6
+39691 >first : time 29530
+39691 >first : otim 27007
+book hit = (NULL)
+39691 >first : usermove 39692 >first : d4e4
+39700 <first : # BBB usermove d4e4
+39701 <first : choose opening...
+39962 <first : BEST MOVE: c6e5 color: black outcome: capture score: 195 capture-type: pawn
+39962 <first : # of moves evaluated: 105312, approx memory usage in bytes: 842496
+39962 <first : #  Outcome: capture
+39962 <first : move c6e5
+46013 >first : time 29503
+46013 >first : otim 26402
+book hit = (NULL)
+46015 >first : usermove 46015 >first : g1f3
+46020 <first : # BBB usermove g1f3
+46020 <first : choose opening...
+46252 <first : BEST MOVE: d8e7 color: black outcome: simple-move score: 220 capture-type: ???
+46252 <first : # of moves evaluated: 89633, approx memory usage in bytes: 717064
+46252 <first : #  Outcome: simple-move
+46252 <first : move d8e7
+52307 >first : time 29479
+52307 >first : otim 25797
+book hit = (NULL)
+52307 >first : usermove 52307 >first : f3e5
+52311 <first : # BBB usermove f3e5
+52311 <first : choose opening...
+54238 <first : BEST MOVE: f6e5 color: black outcome: capture score: 250 capture-type: knight
+54238 <first : # of moves evaluated: 1548357, approx memory usage in bytes: 12386856
+54238 <first : #  Outcome: capture
+54238 <first : move f6e5
+60095 >first : time 29286
+60095 >first : otim 25211
+book hit = (NULL)
+60095 >first : usermove 60095 >first : f2f4
+60100 <first : # BBB usermove f2f4
+60101 <first : choose opening...
+60183 <first : BEST MOVE: e5b2 color: black outcome: capture score: 700 capture-type: pawn
+60183 <first : # of moves evaluated: 47071, approx memory usage in bytes: 376568
+60183 <first : #  Outcome: capture
+60183 <first : move e5b2
+63164 >first : time 29277
+63164 >first : otim 24913
+book hit = (NULL)
+63164 >first : usermove 63164 >first : e4e7
+63170 <first : # BBB usermove e4e7
+63170 <first : choose opening...
+63196 <first : BEST MOVE: e8e7 color: black outcome: capture score: 730 capture-type: queen
+63196 <first : # of moves evaluated: 28414, approx memory usage in bytes: 227312
+63196 <first : #  Outcome: capture
+63196 <first : move e8e7
+76057 >first : time 29274
+76058 >first : otim 23627
+book hit = (NULL)
+76058 >first : usermove 76058 >first : b1c3
+76063 <first : # BBB usermove b1c3
+76063 <first : choose opening...
+76119 <first : BEST MOVE: b2c3 color: black outcome: capture score: 1040 capture-type: knight
+76119 <first : # of moves evaluated: 55826, approx memory usage in bytes: 446608
+76119 <first : #  Outcome: capture
+76119 <first : move b2c3
+88889 >first : time 29268
+88889 >first : otim 22350
+book hit = (NULL)
+88889 >first : usermove 88889 >first : e1d1
+88893 <first : # BBB usermove e1d1
+88893 <first : choose opening...
+88991 <first : BEST MOVE: c3a1 color: black outcome: capture score: 1050 capture-type: rook
+88991 <first : # of moves evaluated: 101112, approx memory usage in bytes: 808896
+88991 <first : #  Outcome: capture
+88991 <first : move c3a1
+94585 >first : time 29258
+94585 >first : otim 21790
+book hit = (NULL)
+94585 >first : usermove 94585 >first : f1e2
+94592 <first : # BBB usermove f1e2
+94592 <first : choose opening...
+94863 <first : BEST MOVE: a1d4 color: black outcome: simple-move score: 1070 capture-type: ???
+94863 <first : # of moves evaluated: 221708, approx memory usage in bytes: 1773664
+94863 <first : #  Outcome: simple-move
+94863 <first : move a1d4
+97179 >first : time 29230
+97180 >first : otim 21559
+book hit = (NULL)
+97180 >first : usermove 97180 >first : d1d2
+97183 <first : # BBB usermove d1d2
+97183 <first : choose opening...
+97789 <first : BEST MOVE: e7f8 color: black outcome: simple-move score: 1080 capture-type: ???
+97789 <first : # of moves evaluated: 473066, approx memory usage in bytes: 3784528
+97789 <first : #  Outcome: simple-move
+97789 <first : move e7f8
+99038 >first : time 29169
+99038 >first : otim 21434
+book hit = (NULL)
+99038 >first : usermove 99038 >first : d2d3
+99043 <first : # BBB usermove d2d3
+99043 <first : choose opening...
+99434 <first : BEST MOVE: d4c5 color: black outcome: simple-move score: 1100 capture-type: ???
+99434 <first : # of moves evaluated: 298151, approx memory usage in bytes: 2385208
+99434 <first : #  Outcome: simple-move
+99434 <first : move d4c5
+100906 >first : time 29129
+100907 >first : otim 21287
+book hit = (NULL)
+100907 >first : usermove 100907 >first : d3c4
+100911 <first : # BBB usermove d3c4
+100911 <first : choose opening...
+101011 <first : BEST MOVE: d7d6 color: black outcome: simple-move score: 1155 capture-type: ???
+101011 <first : # of moves evaluated: 94702, approx memory usage in bytes: 757616
+101011 <first : #  Outcome: simple-move
+101011 <first : move d7d6
+110064 >first : time 29119
+110064 >first : otim 20381
+book hit = (NULL)
+110064 >first : usermove 110064 >first : g2g4
+110068 <first : # BBB usermove g2g4
+110068 <first : choose opening...
+110232 <first : BEST MOVE: f8g8 color: black outcome: simple-move score: 1180 capture-type: ???
+110232 <first : # of moves evaluated: 123748, approx memory usage in bytes: 989984
+110232 <first : #  Outcome: simple-move
+110232 <first : move f8g8
+112520 >first : time 29102
+112520 >first : otim 20153
+book hit = (NULL)
+112520 >first : usermove 112520 >first : f4f5
+112523 <first : # BBB usermove f4f5
+112524 <first : choose opening...
+112997 <first : BEST MOVE: g8f8 color: black outcome: simple-move score: 1195 capture-type: ???
+112997 <first : # of moves evaluated: 232527, approx memory usage in bytes: 1860216
+112997 <first : #  Outcome: simple-move
+112997 <first : move g8f8
+115950 >first : time 29054
+115950 >first : otim 19857
+book hit = (NULL)
+115950 >first : usermove 115950 >first : h2h4
+115954 <first : # BBB usermove h2h4
+115954 <first : choose opening...
+116238 <first : BEST MOVE: f8g8 color: black outcome: simple-move score: 1195 capture-type: ???
+116238 <first : # of moves evaluated: 167257, approx memory usage in bytes: 1338056
+116238 <first : #  Outcome: simple-move
+116238 <first : move f8g8
+117515 >first : time 29025
+117515 >first : otim 19730
+book hit = (NULL)
+117515 >first : usermove 117515 >first : g4g5
+117519 <first : # BBB usermove g4g5
+117519 <first : choose opening...
+117587 <first : BEST MOVE: c8f5 color: black outcome: capture score: 1280 capture-type: pawn
+117587 <first : # of moves evaluated: 58886, approx memory usage in bytes: 471088
+117587 <first : #  Outcome: capture
+117587 <first : move c8f5
+120486 >first : time 29018
+120487 >first : otim 19440
+book hit = (NULL)
+120487 >first : usermove 120487 >first : h4h5
+120489 <first : # BBB usermove h4h5
+120489 <first : choose opening...
+120658 <first : BEST MOVE: f5c2 color: black outcome: capture score: 1300 capture-type: pawn
+120658 <first : # of moves evaluated: 164711, approx memory usage in bytes: 1317688
+120658 <first : #  Outcome: capture
+120658 <first : move f5c2
+126639 >first : time 29001
+126639 >first : otim 18842
+book hit = (NULL)
+126639 >first : usermove 126639 >first : h1g1
+126645 <first : # BBB usermove h1g1
+126645 <first : choose opening...
+126726 <first : BEST MOVE: c5g1 color: black outcome: capture score: 1790 capture-type: rook
+126726 <first : # of moves evaluated: 81153, approx memory usage in bytes: 649224
+126726 <first : #  Outcome: capture
+126726 <first : move c5g1
+129755 >first : time 28992
+129755 >first : otim 18539
+book hit = (NULL)
+129755 >first : usermove 129755 >first : e2d1
+129761 <first : # BBB usermove e2d1
+129761 <first : choose opening...
+129803 <first : BEST MOVE: c2d1 color: black outcome: capture score: 2160 capture-type: bishop
+129803 <first : # of moves evaluated: 54104, approx memory usage in bytes: 432832
+129803 <first : #  Outcome: capture
+129803 <first : move c2d1
+132861 >first : time 28988
+132861 >first : otim 18233
+book hit = (NULL)
+132861 >first : usermove 132861 >first : g5g6
+132865 <first : # BBB usermove g5g6
+132865 <first : choose opening...
+133008 <first : BEST MOVE: d1h5 color: black outcome: capture score: 2170 capture-type: pawn
+133008 <first : # of moves evaluated: 188289, approx memory usage in bytes: 1506312
+133008 <first : #  Outcome: capture
+133008 <first : move d1h5
+134946 >first : time 28973
+134946 >first : otim 18039
+book hit = (NULL)
+134946 >first : usermove 134946 >first : g6h7
+134955 <first : # BBB usermove g6h7
+134955 <first : choose opening...
+134967 <first : BEST MOVE: h8h7 color: black outcome: capture score: 2190 capture-type: pawn
+134967 <first : # of moves evaluated: 19457, approx memory usage in bytes: 155656
+134967 <first : #  Outcome: capture
+134967 <first : move h8h7
+138482 >first : time 28971
+138482 >first : otim 17688
+book hit = (NULL)
+138483 >first : usermove 138483 >first : a2a4
+138486 <first : # BBB usermove a2a4
+138486 <first : choose opening...
+138542 <first : BEST MOVE: g1b6 color: black outcome: simple-move score: 2250 capture-type: ???
+138542 <first : # of moves evaluated: 82070, approx memory usage in bytes: 656560
+138542 <first : #  Outcome: simple-move
+138542 <first : move g1b6
+140170 >first : time 28965
+140170 >first : otim 17525
+book hit = (NULL)
+140170 >first : usermove 140170 >first : a4a5
+140176 <first : # BBB usermove a4a5
+140176 <first : choose opening...
+140205 <first : BEST MOVE: b6a5 color: black outcome: capture score: 2290 capture-type: pawn
+140205 <first : # of moves evaluated: 43805, approx memory usage in bytes: 350440
+140205 <first : #  Outcome: capture
+140205 <first : move b6a5
+141954 >first : time 28961
+141954 >first : otim 17350
+book hit = (NULL)
+141954 >first : usermove 141954 >first : c4b5
+141959 <first : # BBB usermove c4b5
+141959 <first : choose opening...
+141982 <first : BEST MOVE: a5b6 color: black outcome: simple-move score: 2305 capture-type: ???
+141982 <first : # of moves evaluated: 35756, approx memory usage in bytes: 286048
+141982 <first : #  Outcome: simple-move
+141982 <first : move a5b6
+145036 >first : time 28958
+145036 >first : otim 17045
+book hit = (NULL)
+145036 >first : usermove 145036 >first : b5c4
+145041 <first : # BBB usermove b5c4
+145041 <first : choose opening...
+145068 <first : BEST MOVE: h5g6 color: black outcome: simple-move score: 2320 capture-type: ???
+145069 <first : # of moves evaluated: 43661, approx memory usage in bytes: 349288
+145069 <first : #  Outcome: simple-move
+145069 <first : move h5g6
+149232 >first : time 28955
+149232 >first : otim 16628
+book hit = (NULL)
+149232 >first : usermove 149232 >first : c4d5
+149238 <first : # BBB usermove c4d5
+149238 <first : choose opening...
+149263 <first : BEST MOVE: h7h2 color: black outcome: simple-move score: 2325 capture-type: ???
+149263 <first : # of moves evaluated: 41726, approx memory usage in bytes: 333808
+149263 <first : #  Outcome: simple-move
+149263 <first : move h7h2
+160249 >first : time 28952
+160249 >first : otim 15530
+book hit = (NULL)
+160249 >first : usermove 160249 >first : d5c4
+160255 <first : # BBB usermove d5c4
+160255 <first : choose opening...
+160327 <first : BEST MOVE: h2f2 color: black outcome: simple-move score: 2330 capture-type: ???
+160328 <first : # of moves evaluated: 135244, approx memory usage in bytes: 1081952
+160328 <first : #  Outcome: simple-move
+160328 <first : move h2f2
+165952 >first : time 28944
+165952 >first : otim 14967
+book hit = (NULL)
+165952 >first : usermove 165952 >first : c4c3
+165956 <first : # BBB usermove c4c3
+165956 <first : choose opening...
+165998 <first : BEST MOVE: d6d5 color: black outcome: simple-move score: 2335 capture-type: ???
+165998 <first : # of moves evaluated: 68144, approx memory usage in bytes: 545152
+165998 <first : #  Outcome: simple-move
+165998 <first : move d6d5
+171922 >first : time 28940
+171923 >first : otim 14375
+book hit = (NULL)
+171923 >first : usermove 171923 >first : c3b4
+171927 <first : # BBB usermove c3b4
+171927 <first : choose opening...
+171978 <first : BEST MOVE: d5d4 color: black outcome: simple-move score: 2355 capture-type: ???
+171978 <first : # of moves evaluated: 84715, approx memory usage in bytes: 677720
+171978 <first : #  Outcome: simple-move
+171978 <first : move d5d4
+174478 >first : time 28934
+174479 >first : otim 14125
+book hit = (NULL)
+174479 >first : usermove 174479 >first : b4c4
+174485 <first : # BBB usermove b4c4
+174485 <first : choose opening...
+174526 <first : BEST MOVE: d4d3 color: black outcome: simple-move score: 3100 capture-type: ???
+174526 <first : # of moves evaluated: 68381, approx memory usage in bytes: 547048
+174526 <first : #  Outcome: simple-move
+174526 <first : move d4d3
+177018 >first : time 28929
+177018 >first : otim 13876
+book hit = (NULL)
+177020 >first : usermove 177020 >first : c4c3
+177026 <first : # BBB usermove c4c3
+177026 <first : choose opening...
+177057 <first : BEST MOVE: d3d2 color: black outcome: simple-move score: 3110 capture-type: ???
+177057 <first : # of moves evaluated: 54650, approx memory usage in bytes: 437200
+177057 <first : #  Outcome: simple-move
+177057 <first : move d3d2
+179646 >first : time 28925
+179646 >first : otim 13617
+book hit = (NULL)
+179646 >first : usermove 179646 >first : c3b2
+179651 <first : # BBB usermove c3b2
+179651 <first : choose opening...
+179692 <first : BEST MOVE: a8e8 color: black outcome: simple-move score: 3115 capture-type: ???
+179692 <first : # of moves evaluated: 63820, approx memory usage in bytes: 510560
+179692 <first : #  Outcome: simple-move
+179692 <first : move a8e8
+186986 >first : time 28921
+186986 >first : otim 12888
+book hit = (NULL)
+186986 >first : usermove 186986 >first : b2c3
+186991 <first : # BBB usermove b2c3
+186991 <first : choose opening...
+187044 <first : BEST MOVE: e8e2 color: black outcome: simple-move score: 3120 capture-type: ???
+187044 <first : # of moves evaluated: 86785, approx memory usage in bytes: 694280
+187044 <first : #  Outcome: simple-move
+187044 <first : move e8e2
+189982 >first : time 28915
+189982 >first : otim 12594
+book hit = (NULL)
+189982 >first : usermove 189982 >first : c3c4
+189987 <first : # BBB usermove c3c4
+189987 <first : choose opening...
+190051 <first : BEST MOVE: b6e3 color: black outcome: simple-move score: 3120 capture-type: ???
+190051 <first : # of moves evaluated: 106331, approx memory usage in bytes: 850648
+190051 <first : #  Outcome: simple-move
+190051 <first : move b6e3
+192979 >first : time 28908
+192979 >first : otim 42301
+book hit = (NULL)
+192979 >first : usermove 192979 >first : c4c3
+192987 <first : # BBB usermove c4c3
+192987 <first : choose opening...
+193039 <first : BEST MOVE: g6e4 color: black outcome: simple-move score: 3120 capture-type: ???
+193039 <first : # of moves evaluated: 88582, approx memory usage in bytes: 708656
+193039 <first : #  Outcome: simple-move
+193039 <first : move g6e4
+195511 >first : time 58902
+195511 >first : otim 42054
+book hit = (NULL)
+195511 >first : usermove 195511 >first : c3b2
+195517 <first : # BBB usermove c3b2
+195517 <first : choose opening...
+195579 <first : BEST MOVE: e3c5 color: black outcome: simple-move score: 3120 capture-type: ???
+195579 <first : # of moves evaluated: 100900, approx memory usage in bytes: 807200
+195579 <first : #  Outcome: simple-move
+195579 <first : move e3c5
+198847 >first : time 58895
+198847 >first : otim 41727
+book hit = (NULL)
+198847 >first : usermove 198847 >first : b2a1
+198853 <first : # BBB usermove b2a1
+198853 <first : choose opening...
+198932 <first : BEST MOVE: f2f3 color: black outcome: simple-move score: 10000 capture-type: ???
+198932 <first : # of moves evaluated: 138562, approx memory usage in bytes: 1108496
+198932 <first : #  Outcome: simple-move
+198932 <first : move f2f3
+201805 >first : time 58887
+201805 >first : otim 41440
+book hit = (NULL)
+201805 >first : usermove 201805 >first : a1a2
+201809 <first : # BBB usermove a1a2
+201809 <first : choose opening...
+201911 <first : BEST MOVE: c5f2 color: black outcome: simple-move score: 10000 capture-type: ???
+201911 <first : # of moves evaluated: 184244, approx memory usage in bytes: 1473952
+201911 <first : #  Outcome: simple-move
+201911 <first : move c5f2
+203875 >first : time 58876
+203875 >first : otim 41243
+book hit = (NULL)
+203875 >first : usermove 203875 >first : a2b2
+203879 <first : # BBB usermove a2b2
+203879 <first : choose opening...
+203956 <first : BEST MOVE: f2g1 color: black outcome: simple-move score: 10000 capture-type: ???
+203956 <first : # of moves evaluated: 137750, approx memory usage in bytes: 1102000
+203956 <first : #  Outcome: simple-move
+203956 <first : move f2g1
+206793 >first : time 58868
+206793 >first : otim 40960
+book hit = (NULL)
+206793 >first : usermove 206793 >first : b2a1
+206798 <first : # BBB usermove b2a1
+206798 <first : choose opening...
+206884 <first : BEST MOVE: g8h8 color: black outcome: simple-move score: 10000 capture-type: ???
+206884 <first : # of moves evaluated: 154123, approx memory usage in bytes: 1232984
+206884 <first : #  Outcome: simple-move
+206884 <first : move g8h8
+210900 >first : time 58859
+210900 >first : otim 40558
+book hit = (NULL)
+210900 >first : usermove 210900 >first : a1b2
+210906 <first : # BBB usermove a1b2
+210907 <first : choose opening...
+210985 <first : BEST MOVE: c7c5 color: black outcome: simple-move score: 10000 capture-type: ???
+210985 <first : # of moves evaluated: 143746, approx memory usage in bytes: 1149968
+210985 <first : #  Outcome: simple-move
+210985 <first : move c7c5
+212842 >first : time 58850
+212842 >first : otim 40372
+book hit = (NULL)
+212842 >first : usermove 212843 >first : b2a2
+212846 <first : # BBB usermove b2a2
+212847 <first : choose opening...
+212915 <first : BEST MOVE: f3e3 color: black outcome: simple-move score: 10000 capture-type: ???
+212915 <first : # of moves evaluated: 118496, approx memory usage in bytes: 947968
+212915 <first : #  Outcome: simple-move
+212915 <first : move f3e3
+214722 >first : time 58843
+214722 >first : otim 40192
+book hit = (NULL)
+214722 >first : usermove 214722 >first : a2a1
+214728 <first : # BBB usermove a2a1
+214728 <first : choose opening...
+214788 <first : BEST MOVE: e3d3 color: black outcome: simple-move score: 10000 capture-type: ???
+214788 <first : # of moves evaluated: 104740, approx memory usage in bytes: 837920
+214788 <first : #  Outcome: simple-move
+214788 <first : move e3d3
+216492 >first : time 58836
+216492 >first : otim 40021
+book hit = (NULL)
+216494 >first : usermove 216494 >first : a1b2
+216500 <first : # BBB usermove a1b2
+216500 <first : choose opening...
+216612 <first : BEST MOVE: b7b5 color: black outcome: simple-move score: 10000 capture-type: ???
+216612 <first : # of moves evaluated: 216205, approx memory usage in bytes: 1729640
+216612 <first : #  Outcome: simple-move
+216613 <first : move b7b5
+218986 >first : time 58824
+218986 >first : otim 39784
+book hit = (NULL)
+218986 >first : usermove 218986 >first : b2c2
+218990 <first : # BBB usermove b2c2
+218990 <first : choose opening...
+219031 <first : BEST MOVE: d2d1 color: black outcome: checkmate score: 10000 capture-type: ???
+219031 <first : # of moves evaluated: 68036, approx memory usage in bytes: 544288
+219031 <first : #  Outcome: checkmate
+219031 <first : #  white is checkmated!
+219031 <first : #  move that will cause mate: d2d1
+219031 <first : 
+219031 <first : 1-0 {Black mates}
+GameEnds(26, Black mates, 5)
+219031 >first : result 1-0 {Black mates}
+219031 >first : force
+219032 <first : # BBB force
+GameEnds(26, Black mates, 2)
+225283 >first : quit

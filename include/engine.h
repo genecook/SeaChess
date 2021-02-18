@@ -14,17 +14,19 @@ namespace SeaChess {
 // chess Engine class def...
 //***************************************************************************************
 
+enum ALGORITHMS { MINIMAX=0, RANDOM, MONTE_CARLO };
+
 class Engine {
  public:
-  Engine() {};
+  Engine() : algorithm_index(MINIMAX) {};
   Engine(int _num_levels,std::string _debug_enable_str, std::string _opening_moves_str,
-	 std::string _load_file, unsigned int _move_time) {
-    Init(_num_levels,_debug_enable_str,_opening_moves_str,_load_file, _move_time);
+	 std::string _load_file, unsigned int _move_time, std::string _algorithm) : algorithm_index(MINIMAX) {
+    Init(_num_levels,_debug_enable_str,_opening_moves_str,_load_file, _move_time, _algorithm);
   };
   ~Engine() {};
 
   void Init(int _num_levels,std::string _debug_enable_str, std::string _opening_moves_str,
-	    std::string _load_file, unsigned int _move_time);
+	    std::string _load_file, unsigned int _move_time, std::string algorithm);
   
   // these public methods represent the engine 'api':
   
@@ -35,10 +37,12 @@ class Engine {
     num_turns = 0;
     UserSetsOpening();
   };
-  
+
   std::string NextMove();
 
-  virtual std::string ChooseMove(Board &game_board, Move *suggested_move = NULL);
+  int Algorithm() { return algorithm_index; };
+  
+  std::string ChooseMove(Board &game_board, Move *suggested_move = NULL);
 
   void ChangeSides() {
     color = (color==WHITE) ? BLACK : WHITE;
@@ -113,6 +117,8 @@ protected:
   // user has some control over debug prints...
   
   void DebugEnable(std::string move_str);
+
+  int MoveTime() { return move_time; };
   
   // return color assigned to engine...
   
@@ -157,7 +163,8 @@ protected:
   std::string   debug_move_trigger;        // encoded move that could enable debug
   std::string   opening_moves_str;         // passed in string of opening moves
 
-  struct timeval t1;                       // used to time moves
+  int           algorithm_index;           // algorithm to use in choosing moves
+  struct timeval t1;                       // used to time moves (monte-carlo)
   double elapsed_time;                     
 
   unsigned int move_time;                  // move time in seconds

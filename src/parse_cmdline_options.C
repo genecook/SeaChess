@@ -14,7 +14,8 @@ const char *help_text = "\n\
       -L <file>       -- load game state from file.\n\
       -W              -- start as white (defaults to black).\n\
       -n <levels>     -- number of move evaluation levels. (default is four)\n\
-      -t <seconds>     -- time alloted to each (computer) move, in seconds\n\
+      -A              -- algorithm to use (default is minimax)\n\
+      -t <seconds>    -- time alloted to each (computer) move, in seconds (monte-carlo only)\n\
 \n\
     examples:\n\
       my_engine -n 5           -- specify five levels of moves evaluation, for every machine move to be made.\n\
@@ -27,7 +28,11 @@ const char *help_text = "\n\
 \n\
       my_engine -o ''          -- disable machine default opening moves\n\
 \n\
-      my_engine -L saved_game1 -- load game state from (previously saved) file saved_game1\n\
+      my_engine -A random      -- moves selected randomly\n\
+\n\
+      my_engine -A monte-carlo -- use monte-carlo tree simulation to select moves\n\
+\n\
+      my_engine -t 20          -- limit time to select moves to 20 seconds (monte-carlo only)\n\
 ";
 //********************************************************************************
 
@@ -93,6 +98,17 @@ bool ProgramOptions::parse_cmdline_options(int argc, char **argv) {
       } else {
         load_file = argv[i];
 	    std::cout << "    # file to load game state from: " << load_file << std::endl;
+      }
+      continue;
+    }
+    
+    if (!strcmp(argv[i],"-A")) {
+      if ( ++i >= argc) {
+	    std::cout << "'-A' cmdline arg specified without algorithm name." << std::endl;
+	    options_okay = false;
+      } else {
+	algorithm = argv[i];
+	std::cout << "#  algorithm specified: " << algorithm << std::endl;
       }
       continue;
     }

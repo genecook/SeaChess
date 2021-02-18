@@ -16,7 +16,8 @@ struct ProgramOptions {
     std::string opening_moves_str;
     std::string load_file;
     bool is_white;
-    unsigned int move_time;  // time allowed to make a move, in seconds
+    unsigned int move_time;  // time allowed to make a move, in seconds (monte-carlo only)
+    std::string algorithm;   // which algorithm to use
 };
 
 #endif

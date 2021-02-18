@@ -90,6 +90,8 @@ public:
     score = _score;
   };
 
+  bool GameOver() { return (outcome == CHECKMATE) || (outcome == DRAW) || (outcome == RESIGN); };
+  
   void SetInvalid() { start_row = INVALID_INDEX; };
   
   bool Valid() { return (start_row < INVALID_INDEX) && (start_column < INVALID_INDEX); };

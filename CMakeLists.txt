@@ -13,7 +13,7 @@ add_executable(sea_chess src/main.C src/stream_player.C src/parse_cmdline_option
 
 add_library(sea_chess_lib src/board.C src/pieces.C src/bishop.C src/king.C src/knight.C
   src/pawn.C src/queen.C src/rook.C src/engine.C src/moves_tree.C src/eval_move.C
-  src/move.C)
+  src/move.C src/moves_tree_minimax.C src/moves_tree_monte_carlo.C src/random_moves_game.C)
 
 target_link_libraries(sea_chess sea_chess_lib)
 

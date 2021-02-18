@@ -19,7 +19,7 @@ namespace SeaChess {
 //***********************************************************************************************
 
 void Engine::Init(int _num_levels,std::string _debug_enable_str, std::string _opening_moves_str,
-		  std::string _load_file, unsigned int _move_time) {
+		  std::string _load_file, unsigned int _move_time, std::string _algorithm) {
     color = BLACK;
     num_moves = 0;
     num_turns = 0;
@@ -39,6 +39,31 @@ void Engine::Init(int _num_levels,std::string _debug_enable_str, std::string _op
 
     srand(time(NULL));  
 
+    if (_algorithm.size() == 0)
+      algorithm_index = MINIMAX;      
+    else if (_algorithm.find("mini") != std::string::npos)
+      algorithm_index = MINIMAX;
+    else if (_algorithm.find("rand") != std::string::npos)
+      algorithm_index = RANDOM;
+    else if (_algorithm.find("monte") != std::string::npos)
+      algorithm_index = MONTE_CARLO;
+    else {
+      std::stringstream errmsg;
+      errmsg << "#  Moves selection algorithm specified ('" << _algorithm << "') not recognized. ";
+      throw std::logic_error(errmsg.str());
+    }
+
+    switch(algorithm_index) {
+      case MINIMAX:     /* supported */ break;
+      case MONTE_CARLO: /* supported */ break;
+      case RANDOM:      { std::stringstream errmsg;
+                          errmsg << "#  Moves selection algorithm specified ('random') not yet supported. ";
+                          throw std::logic_error(errmsg.str());
+                        }
+                        break;
+      default: break;
+    }
+    
     move_time = _move_time;
   };
 
@@ -48,14 +73,30 @@ void Engine::Init(int _num_levels,std::string _debug_enable_str, std::string _op
 
 std::string Engine::ChooseMove(Board &game_board, Move *suggested_move) {
   //std::cout << "[ChooseMove] entered..." << std::endl;
-  MovesTree moves_tree(Color(), Levels());
+
+  MovesTree *moves_tree;
+
+  switch(Algorithm()) {
+    case MINIMAX:     moves_tree = new MovesTreeMinimax(Color(), Levels());
+                      break;
+    case MONTE_CARLO: moves_tree = new MovesTreeMonteCarlo(Color(), Levels(), MoveTime());
+                      break;
+    case RANDOM:      // not yet...
+                      break;
+    default: break;
+  }
+
   Move next_move;
-  // num_moves - total # of evaluated moves per 'next' move
-  int num_moves = moves_tree.ChooseMove(&next_move,game_board,suggested_move);
+  int num_moves = moves_tree->ChooseMove(&next_move,game_board,suggested_move);
+  
   std::cout << "# of moves evaluated: " << num_moves
             << ", approx memory usage in bytes: " << (sizeof(Move) * num_moves) << std::endl;
+  
   std::string move_str = NextMoveAsString(&next_move);
   //std::cout << "[ChooseMove] exited, next move: '" << move_str << "'" << std::endl;
+
+  delete moves_tree;
+  
   return move_str;
 }
   

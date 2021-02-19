@@ -21,7 +21,7 @@ public:
   ~Move() {};
 
   void InitMove(int _start_row = INVALID_INDEX, int _start_column = INVALID_INDEX, int _end_row = INVALID_INDEX,
-	        int _end_column = INVALID_INDEX, int _color = NOT_SET, int _outcome = INVALID_INDEX, int _check = false,
+	        int _end_column = INVALID_INDEX, int _color = NOT_SET, int _outcome = UNKNOWN, int _check = false,
 	        int _capture_type = UNKNOWN) {
     start_row = _start_row;
     start_column = _start_column;

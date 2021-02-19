@@ -22,7 +22,7 @@ int master_move_id;
 //#define DEBUG_FIXED_RANDOM_SEED 1
 //#define DEBUG_BEST_MOVE 1
 
-#define GAMES_BETWEEEN_TIMEOUT_CHECKS 1000
+#define GAMES_BETWEEN_TIMEOUT_CHECKS 1000
   
 //***********************************************************************************************
 // build up tree of moves; pick the best one. monte-carlo...
@@ -56,9 +56,14 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
 
   StartClock();
 
+#ifdef DEBUG_MONTE_CARLO
+  std::cout << " max-games-exceeded? " << MaxGamesExceeded() << " timeout? " << Timeout(move_time) << " game over? "
+	    << next_move->GameOver() << " rollout-count: " << RolloutCount() << std::endl;
+#endif
+  
   while( !MaxGamesExceeded() && !Timeout(move_time) && !next_move->GameOver()) {
-    for (int i = 0; (i < (GAMES_BETWEEEN_TIMEOUT_CHECKS / RolloutCount())) && !MaxGamesExceeded(); i++) {
-       float incr_white_wins, incr_black_wins; 
+    for (int i = 0; (i < (GAMES_BETWEEN_TIMEOUT_CHECKS / RolloutCount())) && !MaxGamesExceeded(); i++) {
+       float incr_white_wins = 0.0, incr_black_wins = 0.0; 
        ChooseMoveInner(&root,incr_white_wins,incr_black_wins,game_board,Color());
        if (next_move->GameOver())
          break;
@@ -83,9 +88,11 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
 
   PickBestMove(&root,game_board,suggested_move);
 
+  next_move->Set(&root);
+  
 #ifdef DEBUG_MONTE_CARLO
   float highest_node_uct;
-  HighScoreMove(highest_node_uct,root,root,true);
+  HighScoreMove(highest_node_uct,&root,&root,true);
 #endif
 
   return TotalGamesCount();
@@ -94,9 +101,9 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
 void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white_wins, float &incr_black_wins, Board &current_board,int current_color) {
 #ifdef DEBUG_MONTE_CARLO
     std::cout << "[EngineMonteCarlo::ChooseMoveInner] entered, color: " 
-              << ChessUtils::ColorAsStr(current_color) << ", level: " 
+              << ColorAsStr(current_color) << ", level: " 
               << Levels() << " # visits:" << node->NumberOfVisits()
-              << ", previous move: (" << EncodeMove(current_board,*node) << ")"
+              << ", previous move: (" << Engine::EncodeMove(current_board,*node) << ")"
               << " # possible-moves: " << node->PossibleMovesCount() << "..." << std::endl;
 #endif
 
@@ -139,7 +146,7 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
       BumpTotalGamesCount();
 #ifdef DEBUG_MONTE_CARLO
       std::cout << "[EngineMonteCarlo::ChooseMoveInner] game ends in " << (in_check ? "CheckMate!" : "Draw!") << ", winning color: " 
-                << ChessUtils::ColorAsStr(win_color) <<std::endl;
+                << ColorAsStr(win_color) <<std::endl;
 #endif
       return;
     }
@@ -151,6 +158,10 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
 
   MovesTreeNode *next_move = HighScoreMove(highest_node_uct,node);
 
+#ifdef DEBUG_MONTE_CARLO
+  std::cout << "[EngineMonteCarlo::ChooseMoveInner] next move: " << (*next_move) << std::endl;
+#endif
+  
   // there is a high score, nes pa?
   assert(next_move != NULL);
 
@@ -163,14 +174,15 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
     node->IncrementVisitCount(number_of_rollout_simulations);
 #ifdef DEBUG_MONTE_CARLO
     std::cout << "[EngineMonteCarlo::ChooseMoveInner] returns from leaf node 'addition', incr wins white/black: " 
-              << next_move->IncrementalWinsCountWhite() << "/" << next_move->IncrementalWinsCountBlack() 
-              << "..." << std::endl;
+              << incr_white_wins << "/" << incr_black_wins << "..." << std::endl;
 #endif
     return;
   }
 
   // descend game tree to next level...
 
+  NextLevel();
+  
 #ifdef DEBUG_MONTE_CARLO
   std::cout << "  ChooseMoveInner descending, next level: " << Levels() << "..." << std::endl;
 #endif
@@ -197,7 +209,7 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
 
 int MovesTreeMonteCarlo::Rollout(MovesTreeNode *current_node, Board &current_board, Board &previous_board, int current_color) {
 #ifdef DEBUG_MONTE_CARLO
-  std::cout << "[EngineMonteCarlo::rollout] entered for color " << ChessUtils::ColorAsStr(current_color) << "..." << std::endl;
+  std::cout << "[EngineMonteCarlo::Rollout] entered for color " << ColorAsStr(current_color) << "..." << std::endl;
 #endif
 
   assert(current_node->PossibleMovesCount() == 0); // this node hasn't been visited yet, nes pa?
@@ -220,14 +232,13 @@ int MovesTreeMonteCarlo::Rollout(MovesTreeNode *current_node, Board &current_boa
      rndgame.RandomGameStats(num_draws, num_checkmates, num_max_levels); 
      UpdateRandomGameStats(num_draws, num_checkmates, num_max_levels); 
 #ifdef DEBUG_MONTE_CARLO
-     std::cout << "[EngineMonteCarlo::rollout] current node wh/bl wins: " << current_node->IncrementalWinsCountWhite()
-               << "/" << current_node->IncrementalWinsCountBlack() << std::endl;
+     std::cout << "[EngineMonteCarlo::rollout] current node wh/bl wins: " << current_node->NumberOfWhiteWins()
+               << "/" << current_node->NumberOfBlackWins() << std::endl;
 #endif
   }
 
 #ifdef DEBUG_MONTE_CARLO
-  std::cout << "[EngineMonteCarlo::rollout] exited, moves count: " << current_node->NumberOfVisits() 
-            << ", #pms: " << current_node->PossibleMovesCount() << std::endl;
+  std::cout << "[EngineMonteCarlo::rollout] exited, moves count: " << current_node->NumberOfVisits() << std::endl;
 #endif
 
   return current_node->NumberOfVisits();
@@ -330,7 +341,8 @@ class UCB1 {
 // If ties occur, ie, multiple moves with same score, then moves will be sorted by priority.
 //***********************************************************************************************
 
-MovesTreeNode * MovesTreeMonteCarlo::HighScoreMove(float &highest_node_uct, MovesTreeNode *node, MovesTreeNode *parent_node, bool debug) {
+MovesTreeNode * MovesTreeMonteCarlo::HighScoreMove(float &highest_node_uct, MovesTreeNode *node,
+						   MovesTreeNode *parent_node, bool debug) {
 #ifdef DEBUG_HIGH_MOVES
   debug = true;
 #endif

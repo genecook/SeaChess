@@ -18,6 +18,21 @@ int master_move_id;
 // common moves tree methods...
 //***********************************************************************************************
 
+// stream out MovesTreeNode object...
+
+std::ostream& operator<< (std::ostream &os, MovesTreeNode &fld) {
+  os << Board::Coordinates(fld.start_row,fld.start_column)
+     << Board::Coordinates(fld.end_row,fld.end_column);
+  os << " color: " << ColorAsStr(fld.color);
+  os << " outcome: " << OutcomeAsStr(fld.outcome);
+  os << " capture-type: " << CaptureTypeAsStr(fld.capture_type);
+  os << " # of visits: " << fld.NumberOfVisits();
+  os << " # of white wins: " << fld.NumberOfWhiteWins();
+  os << " # of black wins: " << fld.NumberOfBlackWins();
+  return os;
+}
+
+
 //***********************************************************************************************
 // build up list of moves possible for specified color, given a board state.
 // return true if king is in check
@@ -115,7 +130,7 @@ bool MovesTree::GetMoves(std::vector<Move> *possible_moves, Board &game_board, i
 bool movesortfunction(MovesTreeNode *m1, MovesTreeNode *m2) {
   return abs(m1->Score()) > abs(m2->Score());
 }
-  
+
 bool MovesTree::GetMoves(MovesTreeNode *node, Board &game_board, int color,bool avoid_check, bool sort_moves) {
   std::vector<Move> all_possible_moves;
   

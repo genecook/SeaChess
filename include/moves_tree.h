@@ -26,7 +26,8 @@ extern int master_move_id;
 
 class MovesTreeNode : public Move {
 public:
-  MovesTreeNode() : possible_moves(NULL) {
+  MovesTreeNode() : possible_moves(NULL), num_node_visits(0), num_white_wins(0.0), num_black_wins(0.0)
+ {
     InitMove();
 #ifdef GRAPH_SUPPORT
     move_id = master_move_id++;
@@ -34,14 +35,15 @@ public:
   };
   
   MovesTreeNode(int start_row, int start_column, int end_row, int end_column, int color,
-		int outcome = INVALID_INDEX, int capture_type = INVALID_INDEX) : possible_moves(NULL) {
+		int outcome = INVALID_INDEX, int capture_type = INVALID_INDEX)
+              : possible_moves(NULL), num_node_visits(0), num_white_wins(0.0), num_black_wins(0.0) {
     InitMove(start_row, start_column, end_row, end_column, color, outcome, capture_type);
 #ifdef GRAPH_SUPPORT
     move_id = master_move_id++;
 #endif
   };
 
-  MovesTreeNode(Move move) : possible_moves(NULL) {
+  MovesTreeNode(Move move) : possible_moves(NULL), num_node_visits(0), num_white_wins(0.0), num_black_wins(0.0) {
     InitMove(move.StartRow(), move.StartColumn(), move.EndRow(), move.EndColumn(),
 	     move.Color(), move.Outcome(), move.Check(), move.CaptureType());
 #ifdef GRAPH_SUPPORT
@@ -55,12 +57,18 @@ public:
     assert ( (pm_count + 1) < INT_LEAST8_MAX );
     
     MovesTreeNode *new_node = (MovesTreeNode *) malloc( sizeof(MovesTreeNode) );
+    
     new_node->Set(&new_move);
     new_node->pm_count = 0;
     new_node->possible_moves = NULL;
+    new_node->num_node_visits = 0;
+    new_node->num_white_wins = 0.0;
+    new_node->num_black_wins = 0.0;
+    
     possible_moves = (MovesTreeNode **) realloc(possible_moves, sizeof(MovesTreeNode *) * (pm_count + 1) );
     possible_moves[pm_count] = new_node;
     pm_count++;
+    
     return new_node;
   };
   
@@ -83,6 +91,8 @@ public:
     }
   };
 
+  friend std::ostream& operator<< (std::ostream &os, SeaChess::MovesTreeNode &fld);
+  
   void Sort( bool (*sortfunction)(MovesTreeNode *m1, MovesTreeNode *m2) ) {
     std::sort( possible_moves, possible_moves + pm_count, sortfunction );
   };
@@ -91,7 +101,7 @@ public:
     std::random_shuffle( possible_moves, possible_moves + pm_count );
   };
 
-int NumberOfVisits() { return num_node_visits; };
+  int NumberOfVisits() { return num_node_visits; };
 
   float NumberOfWins(int color) { return (color == WHITE) ? num_white_wins : num_black_wins; };
 

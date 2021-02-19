@@ -91,7 +91,52 @@ public:
     std::random_shuffle( possible_moves, possible_moves + pm_count );
   };
 
-  
+int NumberOfVisits() { return num_node_visits; };
+
+  float NumberOfWins(int color) { return (color == WHITE) ? num_white_wins : num_black_wins; };
+
+  float NumberOfWhiteWins() { return num_white_wins; };
+  float NumberOfBlackWins() { return num_black_wins; };
+
+  void DisplayWins(const std::string &prefix) {
+    std::cout << prefix << " #visits: " << NumberOfVisits() << ", # white wins:" << NumberOfWhiteWins()
+              << ", # black wins:" << NumberOfBlackWins() << std::endl;
+  };
+
+  void IncrementVisitCount(int _increment = 1) { num_node_visits += _increment; };
+  void SetVisitCount(int _increment = 1) { num_node_visits = _increment; };
+
+  void ScoreWinsCount(float &incr_white_wins, float &incr_black_wins, int _color, bool in_check = true) {
+    if (in_check) {
+      // a win...
+      if (_color == WHITE) {
+        num_white_wins += 1.0;
+        incr_white_wins = 1.0;
+      } else {
+        num_black_wins += 1.0;
+        incr_black_wins = 1.0;
+      }
+    } else {
+        // a draw...
+        num_black_wins += 0.5;
+        num_white_wins += 0.5;
+        incr_white_wins = 0.5;
+        incr_black_wins = 0.5;
+    }
+  };
+
+  void SetWinCounts(float &incr_white_wins, float &incr_black_wins, float _white_wins, float _black_wins) {
+      num_white_wins += _white_wins;
+      num_black_wins += _black_wins;
+      incr_white_wins = _white_wins;
+      incr_black_wins = _black_wins;
+  };
+
+  void IncreaseWinsCounts( float _white_wins, float _black_wins) {
+      num_white_wins += _white_wins;
+      num_black_wins += _black_wins;
+  };
+
 #ifdef GRAPH_SUPPORT
   int ID() { return move_id; };
   int move_id;
@@ -99,6 +144,11 @@ public:
   
 private:
   //int_least8_t pm_count;
+
+  int   num_node_visits;             // 
+  float num_white_wins;              // used in monte-carlo tree simulation
+  float num_black_wins;              //
+
   MovesTreeNode **possible_moves;
 };
 
@@ -152,7 +202,8 @@ class MovesTree {
   int GetPieceCount(Move *node,Board &game_board,int color);
 
   int Color() { return color; };
-  int NextColor(int current_color) { return (current_color == WHITE) ? BLACK : WHITE; };
+  int OtherColor(int current_color) { return (current_color == WHITE) ? BLACK : WHITE; };
+  int NextColor(int current_color) { return OtherColor(current_color);  };
   
   int MaxLevels() { return max_levels; };
 
@@ -203,15 +254,23 @@ class MovesTreeMonteCarlo : public MovesTree {
 
   int  ChooseMove(Move *next_move, Board &game_board, Move *suggested_move = NULL);
 
+  void PickBestMove(MovesTreeNode *next_move, Board &game_board, Move *suggested_move, bool debug = false);
+  MovesTreeNode * HighScoreMove(float &highest_node_uct, MovesTreeNode *node, MovesTreeNode *parent_node = NULL, bool debug = false);
+  int Rollout(MovesTreeNode *current_node, Board &current_board, Board &previous_board, int current_color);
+    
   int  NumberOfTurns()        { return num_turns; };
   int  BumpNumberOfTurns()    { num_turns++; return num_turns; };
   int  TotalGamesCount()      { return total_games_count; };
   void ResetTotalGamesCount() { total_games_count = 0; };
   int  BumpTotalGamesCount()  { total_games_count++; return total_games_count; };
+  
   void SetLevels(int _levels) { number_of_levels = _levels; };
   int  Levels()               { return number_of_levels; };
+  int  NextLevel()            { number_of_levels++; return number_of_levels; };
+  int  PreviousLevel()        { number_of_levels--; return number_of_levels; };
   int  MaxLevels()            { return max_levels; };
   void SetMaxLevels(int nval) { max_levels = nval; };
+  bool MaxLevelsReached()     { return Levels() == MaxLevels(); };
 
   int  MaxRandomGameLevels() { return max_random_game_levels; };
   void SetMaxRandomGameLevels(int nval) { max_random_game_levels = nval; };
@@ -262,7 +321,7 @@ class MovesTreeMonteCarlo : public MovesTree {
 
  private:
 
-  void ChooseMoveInner(MovesTreeNode *current_node, Board &current_board, int current_color);
+  void ChooseMoveInner(MovesTreeNode *current_node, float &incr_white_wins, float &incr_black_wins, Board &current_board, int current_color);
 
   int move_time;              // in seconds
   unsigned int num_turns;     // # of turns in a game (i move, then you move...)

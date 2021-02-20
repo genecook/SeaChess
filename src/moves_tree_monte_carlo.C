@@ -60,8 +60,6 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
   std::cout << " max-games-exceeded? " << MaxGamesExceeded() << " timeout? " << Timeout(move_time)
 	    << " game over? " << next_move->GameOver() << " rollout-count: " << RolloutCount() << std::endl;
 #endif
-
-  //max_games_count = 100;
   
   while( !MaxGamesExceeded() && !Timeout(move_time) && !next_move->GameOver()) {
     for (int i = 0; (i < (GAMES_BETWEEN_TIMEOUT_CHECKS / RolloutCount())) && !MaxGamesExceeded(); i++) {
@@ -135,7 +133,7 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
 #endif
     // add valid moves to node...
 
-    bool in_check = GetMoves(node,current_board,current_color);
+    bool in_check = GetMoves(node,current_board,current_color,true /* avoid check */,true /* sort moves */);
 #ifdef DEBUG_MONTE_CARLO
     std::cout << "[EngineMonteCarlo::ChooseMoveInner] there are " << node->PossibleMovesCount() 
               << " possible moves for this game state..." << std::endl;
@@ -269,6 +267,9 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
 
   float high_score = -100000.0;
 
+  bool have_suggested_move = (suggested_move != NULL);
+  bool allow_suggested_move = have_suggested_move;
+  
   for (auto pm = 0; pm < next_move->PossibleMovesCount(); pm++) {  
      MovesTreeNode *i = next_move->PossibleMove(pm);
      float this_nodes_win_average = i->NumberOfWins(i->Color()) / i->NumberOfVisits();
@@ -278,6 +279,7 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
                  << " # visits: " << i->NumberOfVisits() << ", # wins: " << i->NumberOfWins(i->Color())
                  << ", wins-average: " << this_nodes_win_average
                  << " (" << (roundf(1000 * this_nodes_win_average) / 1000) << ")"
+	         << " outcome: " << OutcomeAsStr(i->Outcome())
                  << std::endl;
  
      if (i->Outcome() == CHECKMATE) {
@@ -289,16 +291,26 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
        high_score_node = i;
        high_score = this_nodes_win_average;
      }
+
+     // any move that is not a simple-move makes the use of the suggested move (more) uncertain...
+     
+     allow_suggested_move &= (i->Outcome() == SIMPLE_MOVE); 
+
+     have_suggested_move |= (*i == *suggested_move); // suggested move is in the mix
   }
 
-  assert(high_score_node != NULL);
+  assert(high_score_node != NULL); // there must have been a high score node, es verdad?
 
+  bool use_suggested_move = allow_suggested_move && have_suggested_move;
+  
+  Move *best_move = use_suggested_move ? suggested_move : high_score_node;
+  
   if (debug) {
-    std::cout << "[EngineMonteCarlo::PickBestMove] exited. Best move:" << Engine::EncodeMove(game_board,*high_score_node)
-              << ", outcome: " << high_score_node->Outcome() << std::endl;
+    std::cout << "[EngineMonteCarlo::PickBestMove] exited. Best move:"
+	      << Engine::EncodeMove(game_board,*best_move) << std::endl;
   }
 
-  next_move->Set(high_score_node);
+  next_move->Set(best_move);
 }
 
 //***********************************************************************************************

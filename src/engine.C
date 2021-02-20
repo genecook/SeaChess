@@ -360,6 +360,7 @@ std::string Engine::NextMove() {
     CrackMoveStr(om_start_row,om_start_column,om_end_row,om_end_column,opening_move_str);
     Move omove(om_start_row,om_start_column,om_end_row,om_end_column,Color());
     opening_move.Set(&omove);
+    opening_move.SetOutcome(SIMPLE_MOVE);
   }
 
   num_turns++;

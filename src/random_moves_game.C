@@ -10,6 +10,42 @@
 #include <random_moves_game.h>
 
 namespace SeaChess {
+
+//******************************************************************************
+// random moves (sub)tree class play the dumbest moves ever!
+//******************************************************************************
+
+int MovesTreeRandom::ChooseMove(Move *next_move, Board &game_board, Move *suggested_move) {
+  // make up randomized list of all possible moves for the current board/color...
+  
+  MovesTree moves_engine(Color(),1);
+
+  std::vector<SeaChess::Move> tmoves;
+
+  bool in_check = moves_engine.GetMoves(&tmoves,game_board,Color()); 
+
+  std::random_shuffle( tmoves.begin(), tmoves.end() );
+
+  // select next move...
+
+  bool got_one = false;
+  
+  for (auto i = tmoves.begin(); i != tmoves.end() && !got_one; i++) {
+     MovesTreeNode pm = *i;
+     Board updated_board = MovesTree::MakeMove(game_board,&pm);
+     if (moves_engine.Check(updated_board,Color())) // don't leave king in check...
+       continue;
+     next_move->Set(&pm);
+     got_one = true;
+  }
+
+  // no moves to be made? -- then the current color has been checkmated or played to a draw...
+
+  if (!got_one)
+    next_move->SetOutcome(in_check ? RESIGN : DRAW);
+
+  return 1;
+}
   
 //***********************************************************************************************
 // play random game...

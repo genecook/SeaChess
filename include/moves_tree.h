@@ -353,6 +353,18 @@ class MovesTreeMonteCarlo : public MovesTree {
 
 };
 
+//******************************************************************************
+// random moves (sub)tree class...
+//******************************************************************************
+
+class MovesTreeRandom : public MovesTree {
+ public:
+  MovesTreeRandom(int _color, int _max_levels = 1) : MovesTree(_color,_max_levels) {};
+
+  int ChooseMove(Move *next_move, Board &game_board, Move *suggested_move = NULL);
+};
+
+
 };
 
 #endif

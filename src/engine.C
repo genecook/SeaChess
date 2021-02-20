@@ -56,12 +56,12 @@ void Engine::Init(int _num_levels,std::string _debug_enable_str, std::string _op
     switch(algorithm_index) {
       case MINIMAX:     /* supported */ break;
       case MONTE_CARLO: /* supported */ break;
-      case RANDOM:      { std::stringstream errmsg;
-                          errmsg << "#  Moves selection algorithm specified ('random') not yet supported. ";
-                          throw std::logic_error(errmsg.str());
-                        }
-                        break;
-      default: break;
+      case RANDOM:      /* supported */ break;
+      default: { std::stringstream errmsg;
+                 errmsg << "#  Moves selection algorithm specified not yet supported. ";
+                 throw std::logic_error(errmsg.str());
+               }
+               break;
     }
     
     move_time = _move_time;
@@ -81,7 +81,7 @@ std::string Engine::ChooseMove(Board &game_board, Move *suggested_move) {
                       break;
     case MONTE_CARLO: moves_tree = new MovesTreeMonteCarlo(Color(), Levels(), MoveTime());
                       break;
-    case RANDOM:      // not yet...
+    case RANDOM:      moves_tree = new MovesTreeRandom(Color());
                       break;
     default: break;
   }

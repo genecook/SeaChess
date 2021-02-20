@@ -15,9 +15,23 @@ namespace SeaChess {
 // random moves (sub)tree class play the dumbest moves ever!
 //******************************************************************************
 
+#define MAX_TURNS_TO_DRAW 75
+  
 int MovesTreeRandom::ChooseMove(Move *next_move, Board &game_board, Move *suggested_move) {
   // make up randomized list of all possible moves for the current board/color...
   
+  std::cout << "#  ChooseMove entered, turn " << number_of_turns << "..." << std::endl;
+
+  if (game_board.TotalPieceCount() == 2) {  // down to just the kings? - could happen in random game
+    next_move->SetOutcome(DRAW);
+    return 0;
+  }
+
+  if (number_of_turns > MAX_TURNS_TO_DRAW) { // exceeded max # of turns? - then draw
+    next_move->SetOutcome(DRAW);
+    return 0;
+  }
+    
   MovesTree moves_engine(Color(),1);
 
   std::vector<SeaChess::Move> tmoves;

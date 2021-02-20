@@ -359,9 +359,11 @@ class MovesTreeMonteCarlo : public MovesTree {
 
 class MovesTreeRandom : public MovesTree {
  public:
-  MovesTreeRandom(int _color, int _max_levels = 1) : MovesTree(_color,_max_levels) {};
+  MovesTreeRandom(int _color, int _number_of_turns) : MovesTree(_color, 1), number_of_turns(_number_of_turns) {};
 
   int ChooseMove(Move *next_move, Board &game_board, Move *suggested_move = NULL);
+
+  int number_of_turns;
 };
 
 

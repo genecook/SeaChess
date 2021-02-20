@@ -81,7 +81,7 @@ std::string Engine::ChooseMove(Board &game_board, Move *suggested_move) {
                       break;
     case MONTE_CARLO: moves_tree = new MovesTreeMonteCarlo(Color(), Levels(), MoveTime());
                       break;
-    case RANDOM:      moves_tree = new MovesTreeRandom(Color());
+    case RANDOM:      moves_tree = new MovesTreeRandom(Color(), NumberOfTurns());
                       break;
     default: break;
   }

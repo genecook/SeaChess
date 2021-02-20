@@ -11,7 +11,7 @@
 namespace SeaChess {
 
 #ifdef GRAPH_SUPPORT
-int master_move_id;
+extern int master_move_id;
 #endif
   
 //***********************************************************************************************

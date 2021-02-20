@@ -325,8 +325,6 @@ void MovesTree::GraphMovesToFile(const std::string &outfile, MovesTreeNode *node
     std::cout << "NOTE: This configuration does NOT support moves-tree graphing." << std::endl;
     return;
 #else  
-    int node_ID = -1;
-
     char tbuf[1024];
     sprintf(tbuf,"%s.dot",outfile.c_str());
     
@@ -372,16 +370,15 @@ void MovesTree::GraphMoves(std::ofstream &grfile, MovesTreeNode *node, int level
     else
       this_vertex << "N_" << node_id;
 
-    nlabel /* << node->MoveScore() << "/" */ << node->Score();
+    nlabel << node->NumberOfVisits() << "/" << node->NumberOfWins(node->Color());
 
     grfile << this_vertex.str() << "[color=\"" << node_color_str << "\",label=\"" << nlabel.str() << "\"," 
             << "fontcolor=\"" << node_color_str << "\"];\n"; 
 
-    for (auto pmi = node->possible_moves.begin(); pmi != node->possible_moves.end(); pmi++) {
-       MovesTreeNode *pm = *pmi;
+    for (auto pmi = 0; pmi < node->PossibleMovesCount(); pmi++) {
+       MovesTreeNode *pm = node->PossibleMove(pmi);
        std::stringstream next_vertex;
-       int pm_id = pm->ID();
-       next_vertex << "N_" << pm_id;
+       next_vertex << "N_" << pm->ID();
        std::stringstream arc_label;
        Board game_board;
        arc_label << Engine::EncodeMove(game_board,*pm);

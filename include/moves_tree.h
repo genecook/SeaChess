@@ -59,6 +59,9 @@ public:
     MovesTreeNode *new_node = (MovesTreeNode *) malloc( sizeof(MovesTreeNode) );
     
     new_node->Set(&new_move);
+#ifdef GRAPH_SUPPORT
+    new_node->move_id = master_move_id++;
+#endif
     new_node->pm_count = 0;
     new_node->possible_moves = NULL;
     new_node->num_node_visits = 0;
@@ -116,30 +119,24 @@ public:
   void IncrementVisitCount(int _increment = 1) { num_node_visits += _increment; };
   void SetVisitCount(int _increment = 1) { num_node_visits = _increment; };
 
-  void ScoreWinsCount(float &incr_white_wins, float &incr_black_wins, int _color, bool in_check = true) {
+  void ScoreWinsCount(int _color, bool in_check = true) {
     if (in_check) {
       // a win...
       if (_color == WHITE) {
         num_white_wins += 1.0;
-        incr_white_wins = 1.0;
       } else {
         num_black_wins += 1.0;
-        incr_black_wins = 1.0;
       }
     } else {
         // a draw...
         num_black_wins += 0.5;
         num_white_wins += 0.5;
-        incr_white_wins = 0.5;
-        incr_black_wins = 0.5;
     }
   };
 
-  void SetWinCounts(float &incr_white_wins, float &incr_black_wins, float _white_wins, float _black_wins) {
+  void SetWinCounts(float _white_wins, float _black_wins) {
       num_white_wins += _white_wins;
       num_black_wins += _black_wins;
-      incr_white_wins = _white_wins;
-      incr_black_wins = _black_wins;
   };
 
   void IncreaseWinsCounts( float _white_wins, float _black_wins) {

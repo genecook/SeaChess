@@ -13,7 +13,7 @@
 namespace SeaChess {
 
 #ifdef GRAPH_SUPPORT
-int master_move_id;
+extern int master_move_id;
 #endif
 
 //#define DEBUG_MONTE_CARLO 1
@@ -57,9 +57,11 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
   StartClock();
 
 #ifdef DEBUG_MONTE_CARLO
-  std::cout << " max-games-exceeded? " << MaxGamesExceeded() << " timeout? " << Timeout(move_time) << " game over? "
-	    << next_move->GameOver() << " rollout-count: " << RolloutCount() << std::endl;
+  std::cout << " max-games-exceeded? " << MaxGamesExceeded() << " timeout? " << Timeout(move_time)
+	    << " game over? " << next_move->GameOver() << " rollout-count: " << RolloutCount() << std::endl;
 #endif
+
+  //max_games_count = 100;
   
   while( !MaxGamesExceeded() && !Timeout(move_time) && !next_move->GameOver()) {
     for (int i = 0; (i < (GAMES_BETWEEN_TIMEOUT_CHECKS / RolloutCount())) && !MaxGamesExceeded(); i++) {
@@ -81,7 +83,7 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
             << ", # checkmates: " << num_checkmates
             << ", # 'max-levels exceeded' draws: " << num_max_levels_reached << std::endl;
 
-  //GraphMovesToFile("moves", next_move); //<---generally only useful when small # of moves possible
+  //GraphMovesToFile("moves", &root); //<---generally only useful when small # of moves possible
 
   // at this point, the list of possible moves (moves explored) attached to the 'next' move
   // represents the list of potential moves...
@@ -98,7 +100,8 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
   return TotalGamesCount();
 }
 
-void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white_wins, float &incr_black_wins, Board &current_board,int current_color) {
+void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white_wins, float &incr_black_wins,
+					  Board &current_board,int current_color) {
 #ifdef DEBUG_MONTE_CARLO
     std::cout << "[EngineMonteCarlo::ChooseMoveInner] entered, color: " 
               << ColorAsStr(current_color) << ", level: " 
@@ -106,6 +109,8 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
               << ", previous move: (" << Engine::EncodeMove(current_board,*node) << ")"
               << " # possible-moves: " << node->PossibleMovesCount() << "..." << std::endl;
 #endif
+
+  node->IncrementVisitCount();
 
   UpdateLastLevel(Levels());
 
@@ -115,9 +120,8 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
 #ifdef DEBUG_MONTE_CARLO
     std::cout << "[EngineMonteCarlo::ChooseMoveInner] max-levels reached. Game ends in a draw." << std::endl;
 #endif
-    node->ScoreWinsCount(incr_white_wins,incr_black_wins,current_color,false);
+    BumpTotalGamesCount(); // this counts of course as a completed game
     node->SetOutcome(DRAW);
-    BumpTotalGamesCount();
     return;
   }
 
@@ -126,7 +130,8 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
   if (node->PossibleMovesCount() == 0) {
     // populate possible moves list...
 #ifdef DEBUG_MONTE_CARLO
-    std::cout << "[EngineMonteCarlo::ChooseMoveInner] get list of all possible moves for this game state..." << std::endl;
+    std::cout << "[EngineMonteCarlo::ChooseMoveInner] get list of all possible moves for this game state..."
+	      << std::endl;
 #endif
     // add valid moves to node...
 
@@ -138,15 +143,14 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
      // no valid moves? then assume draw or checkmate
     if (node->PossibleMovesCount() == 0) {
       int win_color = (current_color == WHITE) ? BLACK : WHITE;
-      node->ScoreWinsCount(incr_white_wins,incr_black_wins,win_color,in_check);
       if (in_check)
         node->SetOutcome(win_color == Color() ? CHECKMATE : RESIGN);
       else
         node->SetOutcome(DRAW);
-      BumpTotalGamesCount();
+      BumpTotalGamesCount(); // this counts of course as a completed game
 #ifdef DEBUG_MONTE_CARLO
-      std::cout << "[EngineMonteCarlo::ChooseMoveInner] game ends in " << (in_check ? "CheckMate!" : "Draw!") << ", winning color: " 
-                << ColorAsStr(win_color) <<std::endl;
+      std::cout << "[EngineMonteCarlo::ChooseMoveInner] game ends in " << (in_check ? "CheckMate!" : "Draw!")
+		<< ", winning color: " << ColorAsStr(win_color) <<std::endl;
 #endif
       return;
     }
@@ -158,20 +162,21 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
 
   MovesTreeNode *next_move = HighScoreMove(highest_node_uct,node);
 
+  assert(next_move != NULL); // there is a high score, nes pa?
+
 #ifdef DEBUG_MONTE_CARLO
   std::cout << "[EngineMonteCarlo::ChooseMoveInner] next move: " << (*next_move) << std::endl;
 #endif
   
-  // there is a high score, nes pa?
-  assert(next_move != NULL);
-
   Board updated_board = MovesTree::MakeMove(current_board, next_move);
 
+  // we haven't visited this node before, do rollout and return...
+  
   if (next_move->NumberOfVisits() == 0) {
-    // we haven't visited this node before, do rollout and return...
-    int number_of_rollout_simulations = Rollout(next_move, updated_board, current_board, OtherColor(current_color));
-    node->SetWinCounts( incr_white_wins, incr_black_wins, next_move->NumberOfWhiteWins(), next_move->NumberOfBlackWins() );
-    node->IncrementVisitCount(number_of_rollout_simulations);
+    Rollout(next_move, updated_board, current_board, OtherColor(current_color));
+    incr_white_wins = next_move->NumberOfWhiteWins();
+    incr_black_wins = next_move->NumberOfBlackWins();
+    next_move->IncrementVisitCount();
 #ifdef DEBUG_MONTE_CARLO
     std::cout << "[EngineMonteCarlo::ChooseMoveInner] returns from leaf node 'addition', incr wins white/black: " 
               << incr_white_wins << "/" << incr_black_wins << "..." << std::endl;
@@ -186,13 +191,10 @@ void MovesTreeMonteCarlo::ChooseMoveInner(MovesTreeNode *node, float &incr_white
 #ifdef DEBUG_MONTE_CARLO
   std::cout << "  ChooseMoveInner descending, next level: " << Levels() << "..." << std::endl;
 #endif
-
-  incr_white_wins = incr_black_wins = 0.0;
   
   ChooseMoveInner(next_move, incr_white_wins, incr_black_wins, updated_board, OtherColor(current_color));
 
   node->IncreaseWinsCounts( incr_white_wins, incr_black_wins );
-  node->IncrementVisitCount(RolloutCount());
 
 #ifdef DEBUG_MONTE_CARLO
   std::cout << "[EngineMonteCarlo::ChooseMoveInner] returns from level " << Levels() << ", incr wins white/black: " 
@@ -220,13 +222,12 @@ int MovesTreeMonteCarlo::Rollout(MovesTreeNode *current_node, Board &current_boa
 
   for (auto i = 0; i < RolloutCount(); i++) {
      SeaChess::RandomMovesGame rndgame(MaxRandomGameLevels(),NumberOfTurns());
-     float white_score,black_score;
+     float white_score = 0.0, black_score = 0.0;
      rndgame.Play(white_score,black_score,current_board,current_color,Levels());
 #ifdef DEBUG_MONTE_CARLO
      std::cout << "[EngineMonteCarlo::rollout] random game wh/bl wins: " << white_score << "/" << black_score << std::endl;
 #endif
      current_node->IncreaseWinsCounts( white_score, black_score );
-     current_node->IncrementVisitCount();
      BumpTotalGamesCount();
      int num_draws, num_checkmates, num_max_levels;
      rndgame.RandomGameStats(num_draws, num_checkmates, num_max_levels); 
@@ -266,9 +267,9 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
 
   MovesTreeNode *high_score_node = NULL;
 
-  float high_score = -100.0;
+  float high_score = -100000.0;
 
-  for (auto pm = 0; pm < next_move->PossibleMovesCount() && (high_score_node == NULL); pm++) {  
+  for (auto pm = 0; pm < next_move->PossibleMovesCount(); pm++) {  
      MovesTreeNode *i = next_move->PossibleMove(pm);
      float this_nodes_win_average = i->NumberOfWins(i->Color()) / i->NumberOfVisits();
 
@@ -281,7 +282,10 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
  
      if (i->Outcome() == CHECKMATE) {
        high_score_node = i;
-     } else if (this_nodes_win_average > high_score) {
+       break;
+     }
+
+     if (this_nodes_win_average > high_score) {
        high_score_node = i;
        high_score = this_nodes_win_average;
      }

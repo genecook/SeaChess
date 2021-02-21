@@ -89,7 +89,7 @@ std::string Engine::ChooseMove(Board &game_board, Move *suggested_move) {
   Move next_move;
   int num_moves = moves_tree->ChooseMove(&next_move,game_board,suggested_move);
   
-  std::cout << "# of moves evaluated: " << num_moves
+  std::cout << "#  number of moves evaluated: " << num_moves
             << ", approx memory usage in bytes: " << (sizeof(Move) * num_moves) << std::endl;
   
   std::string move_str = NextMoveAsString(&next_move);
@@ -128,10 +128,10 @@ void Engine::UserSetsOpening() {
 //***********************************************************************************************
 
 void Engine::ChooseOpening(std::string opponents_opening_move) {
-  std::cout << "choose opening..." << std::endl;
+  std::cout << "#  choose opening..." << std::endl;
   if (have_opening_moves) return; // already have opening...
 
-  std::cout << "setup opening move..." << std::endl;
+  std::cout << "#  setup opening move..." << std::endl;
 
   if (opponents_opening_move == "?") {
     // we move first...
@@ -350,12 +350,14 @@ std::string Engine::NextMoveAsString(Move *next_move) {
 //***********************************************************************************************
 
 std::string Engine::NextMove() {
+  ChooseOpening("?"); // opening may have already been chosen, but if not...
+  
   std::string opening_move_str = NextOpeningMove();
 
   Move opening_move;
   
   if (opening_move_str.size() > 0) {
-    std::cout << "# next opening move: '" << opening_move_str << "'" << std::endl;
+    std::cout << "#  next opening move: '" << opening_move_str << "'" << std::endl;
     int om_start_row,om_start_column,om_end_row,om_end_column;
     CrackMoveStr(om_start_row,om_start_column,om_end_row,om_end_column,opening_move_str);
     Move omove(om_start_row,om_start_column,om_end_row,om_end_column,Color());

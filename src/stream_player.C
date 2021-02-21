@@ -228,14 +228,14 @@ int Play(SeaChess::Engine *my_little_engine) {
     if (tbuf == "white") {
       // set white on move. set the engine to play black...
       my_little_engine->SetColor(SeaChess::WHITE);
-      to_xboard("# BBB white - engine plays black");	
+      to_xboard("# BBB white - engine plays white");	
       continue;
     }
       
     if (tbuf == "black") {
       // set black on move. set the engine to play white...
       my_little_engine->SetColor(SeaChess::BLACK);
-      to_xboard("# BBB black - engine plays white");	
+      to_xboard("# BBB black - engine plays black");	
       continue;
     }
       

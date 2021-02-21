@@ -46,7 +46,7 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
   ResetRandomGameStats();
   SetLevels(0); // starting level is NOT same as number of turns
   SetMaxLevels(75);
-  SetMaxRandomGameLevels(1000);
+  SetMaxRandomGameLevels(75);
 
   // evaluate moves 'til some threshhold reached...
 

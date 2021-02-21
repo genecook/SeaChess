@@ -29,8 +29,9 @@ extern int master_move_id;
 //***********************************************************************************************
 
 int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *suggested_move) {
-  std::cout << "#  ChooseMove entered, turn " << NumberOfTurns() << "..." << std::endl;
-  
+  std::cout << "#  ChooseMove entered, color " << ColorAsStr(Color())
+	    << ", turn " << NumberOfTurns() << "..." << std::endl;
+
 #ifdef GRAPH_SUPPORT
   master_move_id = 0;
 #endif
@@ -55,7 +56,7 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
   ResetLastLevelVisited();
 
   StartClock();
-
+  
 #ifdef DEBUG_MONTE_CARLO
   std::cout << " max-games-exceeded? " << MaxGamesExceeded() << " timeout? " << Timeout(move_time)
 	    << " game over? " << next_move->GameOver() << " rollout-count: " << RolloutCount() << std::endl;
@@ -89,7 +90,7 @@ int MovesTreeMonteCarlo::ChooseMove(Move *next_move, Board &game_board, Move *su
   PickBestMove(&root,game_board,suggested_move);
 
   next_move->Set(&root);
-  
+
 #ifdef DEBUG_MONTE_CARLO
   float highest_node_uct;
   HighScoreMove(highest_node_uct,&root,&root,true);
@@ -255,7 +256,8 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
 #endif
 
   if (debug)
-    std::cout << "[EngineMonteCarlo::PickBestMove] entered..." << std::endl;
+    std::cout << "[EngineMonteCarlo::PickBestMove] entered, suggested move: "
+	      << *suggested_move << ", color: " << ColorAsStr(suggested_move->Color()) << "..." << std::endl;
 
   if (next_move->PossibleMovesCount() == 0) {
     // no possible moves? 'next move' should have outcome properly indicating checkmate or draw...
@@ -275,8 +277,9 @@ void MovesTreeMonteCarlo::PickBestMove(MovesTreeNode *next_move, Board &game_boa
      float this_nodes_win_average = i->NumberOfWins(i->Color()) / i->NumberOfVisits();
 
      if (debug)
-       std::cout << "\tmove:" << Engine::EncodeMove(game_board,*i) 
-                 << " # visits: " << i->NumberOfVisits() << ", # wins: " << i->NumberOfWins(i->Color())
+       std::cout << "\tmove:" << Engine::EncodeMove(game_board,*i)
+	         << ", color: " << ColorAsStr(i->Color())
+                 << ", # visits: " << i->NumberOfVisits() << ", # wins: " << i->NumberOfWins(i->Color())
                  << ", wins-average: " << this_nodes_win_average
                  << " (" << (roundf(1000 * this_nodes_win_average) / 1000) << ")"
 	         << " outcome: " << OutcomeAsStr(i->Outcome())

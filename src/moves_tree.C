@@ -247,8 +247,6 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
   MovesTreeNode *best_move = root_node->PossibleMove(0);
   root_node->Set( best_move );
   
-  std::cout << "BEST MOVE: " << (*best_move) << std::endl;
-  
   // is there a suggested move?...
 
   if (suggested_move == NULL)
@@ -261,7 +259,6 @@ void MovesTree::PickBestMove(MovesTreeNode *root_node, Board &game_board, Move *
      // if the suggested move is located and its score is as least as good as the best score
      // OR the best move isn't too interesting, then use the suggested move...
      if ( pm->Match(suggested_move) ) {
-       std::cout << "SUGGESTED MOVE SCORE: " << pm->Score() << std::endl;
        if ( (pm->Score() == best_move->Score()) || (best_move->Outcome() == SIMPLE_MOVE) ) {
 	 // it does. lets use the suggested move, and hope its a good one...
          root_node->Set(pm);
